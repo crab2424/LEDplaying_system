@@ -1,0 +1,318 @@
+% 元の
+% \documentclass[lualatex,book,paper=a4paper,jafontsize=11.5pt,jafontscale=1.05]{jlreq}
+\documentclass[lualatex,paper=a4paper,jafontsize=11.5pt,jafontscale=1.05]{jlreq}
+% 2ページ目や章の前に一ページ余分なものがあるのが気になる場合は openanyを\documentclass[...,book,openany ,..]として追加する
+
+%フォント:
+\usepackage{luatexja-fontspec}
+\usepackage{hack-fonts}
+
+%表紙用:
+\usepackage{hack-cover}
+\usepackage{enumitem}
+% 画像
+\usepackage{graphicx}
+\usepackage{float}
+
+% リンク
+\usepackage[hidelinks]{hyperref}
+
+% ソースコード
+\usepackage{listings}
+\lstset{
+  frame=single,
+  basicstyle=\small\ttfamily,
+  tabsize=4,
+  breaklines=true
+}
+
+% 色・ガントチャート
+\usepackage{xcolor}
+\usepackage{pgfgantt}
+\usepackage{caption}
+
+\begin{document}
+\section*{作業ログ}
+\noindent
+報告者:恩田 隼士\\
+報告日: \today \\
+プロジェクト名: 単一のフルカラーLEDとArduinoを用いた光無線通信による楽器間同期演奏システム \\
+\hrulefill
+
+\section{進捗サマリー（概要）}
+\begin{itemize}
+ \item 全体進捗率: 50\%
+ \item マイルストーン達成状況: 達成
+ \item 主要成果:
+ \begin{itemize}
+    \item 演奏開始・停止スイッチの実装
+    \item 楽譜配列の完成
+ \end{itemize}
+ \item 重大課題（影響度）: ヴァイオリンの音の再現（高）
+ \begin{itemize}
+    \item 倍音波形の合成のみではヴァイオリンの音色を完全に再現できなかったため，引き続きスペクトラム分析を行い，実際のヴァイオリン音の特徴を抽出して再現する方法を模索中である．
+ \end{itemize}
+
+\end{itemize}
+
+\section{作業ログ（詳細トラッキング）}
+\begin{table}[H]
+  \centering
+  \caption{作業ログ}
+   \scalebox{0.7}{
+    \begin{tabular}{lcccccc} \hline
+      作業項目 & 開始日 & 予定完了日 & 状態 & 進捗率 & 依存関係・ブロッカー & コメント \\ \hline
+      楽器演奏 & 05/20 & 05/23 & 完了 & 100\% & なし & - \\
+      演奏開始・停止ボタン（設計） & 05/23 & 05/27 & 完了 & 100\% & 部品入手 & 今週完了 \\
+      楽器音 & 05/23 & 05/27 & 完了 & 100\% & 楽器演奏 & - \\
+      楽譜配列 & 05/26 & 05/28 & 完了 & 100\% & 楽器音 & 今週完了 \\
+      ヴァイオリン音 & 05/28 & 06/09 & 進行中 & 50\% & 楽器音 & - \\
+      演奏開始・停止ボタン（実装） & 05/28 & 06/09 & 完了 & 100\% & 設計 & 追加実装・今週完了 \\
+      開始停止スイッチテスト & 06/10 & 06/16 & 未着手 & 0\% & 実装の完了 & - \\
+      楽器音テスト & 06/10 & 06/16 & 未着手 & 0\% & 実装の完了 & - \\
+      \hline
+    \end{tabular}
+  }
+\end{table}
+
+
+% ===== 計画前ガントチャート =====
+\subsection{担当箇所のガントチャート（計画前）}
+\noindent
+\begin{figure}[H]
+\centering
+\resizebox{0.92\linewidth}{!}{%
+\begin{ganttchart}[
+  hgrid,
+  vgrid={*6{draw=none,line width=0pt}, dotted},
+  time slot format=isodate,
+  time slot unit=day,
+  x unit=0.52cm,
+  y unit title=0.6cm,
+  y unit chart=0.65cm,
+  title label font=\tiny,
+  bar label font=\small,
+  bar label node/.append style={text width=4.8cm, align=right},
+  bar height=0.55,
+  bar top shift=0.23,
+  bar/.append style={fill=violet!45, draw=violet!75},
+]{2026-05-20}{2026-06-16}
+  \gantttitlecalendar{month=shortname, day} \\
+  \ganttbar{楽器演奏}{2026-05-20}{2026-05-23} \\
+  \ganttbar{演奏開始，停止ボタン}{2026-05-23}{2026-05-27} \\
+  \ganttbar{楽器音}{2026-05-23}{2026-05-27} \\
+  \ganttbar{楽譜配列}{2026-05-26}{2026-05-28} \\
+  \ganttbar{ヴァイオリン音}{2026-05-28}{2026-05-31}
+  \ganttbar[bar label node/.append style={opacity=0}]{}{2026-06-04}{2026-06-09} \\
+  \ganttbar{開始停止スイッチテスト}{2026-06-10}{2026-06-16} \\
+  \ganttbar{楽器音テスト}{2026-06-10}{2026-06-16}
+\end{ganttchart}%
+}
+\caption{担当箇所ガントチャート（計画前）}
+\end{figure}
+
+% ===== 現在のガントチャート =====
+% 凡例：■ 灰色 = 完了，■ 紫色 = 未完了 / 進行中
+% タスクの状態に応じて fill=gray!60（完了）または fill=violet!50（未完了）を変更
+\subsection{担当箇所のガントチャート（現在・進捗状況）}
+\noindent
+{\small \textcolor{gray!50}{\rule{1em}{0.8em}}\ 完了\quad
+       \textcolor{violet!60}{\rule{1em}{0.8em}}\ 未完了／進行中}
+\begin{figure}[H]
+\centering
+\resizebox{0.92\linewidth}{!}{%
+\begin{ganttchart}[
+  hgrid,
+  vgrid={*6{draw=none,line width=0pt}, dotted},
+  time slot format=isodate,
+  time slot unit=day,
+  x unit=0.52cm,
+  y unit title=0.6cm,
+  y unit chart=0.65cm,
+  title label font=\tiny,
+  bar label font=\small,
+  bar label node/.append style={text width=4.8cm, align=right},
+  bar height=0.55,
+  bar top shift=0.23,
+]{2026-05-20}{2026-06-16}
+  \gantttitlecalendar{month=shortname, day} \\
+  % ---- 完了タスク (gray!60) ----
+  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
+    {楽器演奏}{2026-05-20}{2026-05-23} \\
+  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
+    {演奏開始・停止ボタン（設計）}{2026-05-23}{2026-05-27} \\
+  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
+    {楽器音}{2026-05-23}{2026-05-27} \\
+  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
+    {楽譜配列}{2026-05-26}{2026-05-28} \\
+  % ---- 未完了・進行中タスク (violet!50) ----
+  \ganttbar[bar/.append style={fill=violet!50, draw=violet!80}]
+    {ヴァイオリン音}{2026-05-28}{2026-05-31}
+  \ganttbar[bar/.append style={fill=violet!50, draw=violet!80},
+    bar label node/.append style={opacity=0}]
+    {}{2026-06-04}{2026-06-09} \\
+  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
+    {演奏開始・停止ボタン（実装）}{2026-05-28}{2026-05-31}
+  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80},
+    bar label node/.append style={opacity=0}]
+    {}{2026-06-04}{2026-06-09} \\
+  \ganttbar[bar/.append style={fill=violet!50, draw=violet!80}]
+    {開始停止スイッチテスト}{2026-06-10}{2026-06-16} \\
+  \ganttbar[bar/.append style={fill=violet!50, draw=violet!80}]
+    {楽器音テスト}{2026-06-10}{2026-06-16}
+\end{ganttchart}%
+}
+\caption{担当箇所ガントチャート（現在：灰＝完了，紫＝未完了）}
+\end{figure}
+
+ガントチャートにおいて，06/01$\sim$06/03の期間はテスト期間として空白にしている．
+
+% ===== 日ごとの作業時間・内容 =====
+\subsection{日ごとの作業時間・内容}
+\begin{table}[H]
+  \centering
+  \caption{日ごとの作業時間・内容}
+  \scalebox{0.88}{
+    \begin{tabular}{ccp{7.5cm}} \hline
+      日付 & 作業時間 & 作業内容・備考 \\ \hline
+      2026/05/27 & 4h & ヴァイオリン波形合成・楽譜配列配置 \\[4pt]
+      2026/05/28 & 2h & ヴァイオリン波形合成\\[4pt]
+      2026/05/30 & 6h & 演奏開始・停止ボタンについての設計・実装\\[4pt]
+      2026/06/04 & 1h & 演奏開始・停止ボタンのテスト\\[4pt]
+      2026/06/05 & 2h & ヴァイオリン音のスペクトラム分析・波形合成\\[4pt]
+      2026/06/06 & 2h & ヴァイオリン音のスペクトラム分析・波形合成\\[4pt]
+      2026/06/07 & 1h & ヴァイオリン音のスペクトラム分析・波形合成\\[4pt]
+      2026/06/09 & 2h & ヴァイオリン音のスペクトラム分析・波形合成\\[4pt]
+        % ※必要に応じて行を追加
+      \hline
+    \end{tabular}
+  }
+
+\end{table}
+
+\section{課題管理}
+
+\subsection{演奏開始・停止ボタンの設計の遅延について}
+\begin{itemize}
+  \item 原因: 設計に想定以上の時間を要し，予定完了日（05/27）より4日遅れた．
+  \item 影響度: 低
+  \item 優先度: 低（完了済み）
+  \item 対応策: 設計・実装ともに完了しており，後続タスクのスケジュールへの影響は軽微であるため，対応不要．
+  \item 期限: 完了済み
+  \item 状態: 完了
+\end{itemize}
+
+\subsection{ヴァイオリン音再現}
+\begin{itemize}
+  \item 原因: 実楽器の波形と倍音波形の合成のみではヴァイオリンの音色を完全に再現できないため．
+  \item 影響度: 高
+  \item 優先度: 高
+  \item 対応策: 実際のヴァイオリン音に対してスペクトラム分析を行い，実際のヴァイオリン音の特徴を抽出して再現する．
+  \item 期限: 06/12
+  \item 状態: 対応中
+\end{itemize}
+
+\subsection{コード統合}
+\begin{itemize}
+  \item 原因: 各担当者が個別に実装を進めているため，統合時にコードの調整が必要となる．
+  \item 影響度: 中
+  \item 優先度: 中
+  \item 対応策: 他担当者と実装の仕様・コードを確認し，統合作業を計画的に進める．
+  \item 期限: 未定
+  \item 状態: 未着手
+\end{itemize}
+
+
+% ※影響度＝プロジェクトへのインパクト
+% ※優先度＝対応の緊急性
+
+\section{AI利用状況と検証}
+\subsection{利用内容}
+% 複数回使用すると思うのでその度表を追加
+\begin{itemize}
+    \item 利用目的：実装
+    \item 入力（プロンプト要旨）：
+    \begin{itemize}
+        \item タクトスイッチの押下とLEDのON/OFF制御の対応付けについて質問した．
+        \item 点滅時の点灯間隔を短縮（高速化）する方法について質問した．
+        \item チャタリング対策（ソフトウェアデバウンス）の実装方法について質問した．
+    \end{itemize}
+    \item 出力概要：
+    \begin{itemize}
+        \item タクトスイッチ制御：\texttt{digitalRead()} でスイッチ状態を読み取り，\texttt{HIGH}/\texttt{LOW} をフラグに反映してLEDのON/OFFを切り替える実装が得られた．
+        \item 点灯間隔の短縮：\texttt{delay()} の値を削減する方法，および \texttt{millis()} を用いた非ブロッキング点滅実装が得られた．
+        \item チャタリング対策：前回の状態変化から一定時間（例：20\,ms）経過した場合のみ状態を更新するデバウンス処理の実装が得られた．
+    \end{itemize}
+\end{itemize}
+
+\subsection{検証方法}
+% ※第三者が再現できるレベルで記述
+\begin{itemize}
+  \item 検証方法:
+  \begin{itemize}
+      \item 実機による動作確認・比較
+  \end{itemize}
+  \item 参照資料:
+  \begin{itemize}
+      \item Arduinoの\texttt{digitalRead()}関数に関する公式リファレンス\cite{digitalread}．
+      \item チャタリング対策に関する技術資料．
+  \end{itemize}
+  \item 検証手順：
+  \begin{enumerate}
+      \item 実装したスイッチ回路をArduinoに接続し，押下時にLEDがON，再押下でOFFとなることを確認する．
+      \item デバウンス処理の有無でスイッチの誤作動頻度を比較し，チャタリング抑制効果を確認する．
+  \end{enumerate}
+\end{itemize}
+
+\subsection{ファクトチェック}
+\begin{itemize}
+  \item 一致点：
+  \begin{itemize}
+    \item \texttt{millis()} を用いた非ブロッキング処理はArduino公式でも推奨される手法であり，実装内容と整合する．
+    \item ソフトウェアデバウンスにおける一般的な閾値（10〜50\,ms）の範囲内で実装されており，文献と一致する．
+  \end{itemize}
+  \item 不一致・疑義：なし
+  \item 最終判断：採用
+  \item 根拠：
+  \begin{itemize}
+    \item 実機動作確認により，スイッチのON/OFF制御・チャタリング抑制のいずれも正常に動作することを確認した．
+  \end{itemize}
+\end{itemize}
+
+\section{次回計画（次回までに実施する内容）}
+\begin{itemize}
+  \item 実施事項①：ヴァイオリン音の完成
+  \begin{itemize}
+    \item スペクトラム分析を継続し，実際のヴァイオリン音の倍音比を抽出してProcessingの実装へ反映する．
+  \end{itemize}
+  \item 達成基準：
+  \begin{itemize}
+    \item 生成音のスペクトラムがヴァイオリン実測値と整合し，聴感評価において自然な音色であると判断できること．
+  \end{itemize}
+  \item 期限：2026/06/12
+
+  \item 実施事項②：楽器音テスト
+  \begin{itemize}
+    \item 実装した楽器音（ヴァイオリン音を含む）の動作テストを実施する．
+  \end{itemize}
+  \item 達成基準：
+  \begin{itemize}
+    \item 全音程において対応する音が正しく鳴り，ヴァイオリン音の音色が許容範囲内で再現されていること．
+  \end{itemize}
+  \item 期限：2026/06/19
+\end{itemize}
+
+\section{その他}
+連絡事項・懸念点：なし
+
+\section{付録}
+添付資料を以下のリポジトリURLに示す．添付範囲は全体である．\\
+\url{https://github.com/crab2424/LEDplaying_system}
+
+
+
+\begin{thebibliography}{9}
+\bibitem{digitalread} Arduino (2026), "digitalRead()". Arduino docs, \url{https://docs.arduino.cc/learn/microcontrollers/digital-pins/}. (2026年5月30日 参照)
+\end{thebibliography}
+
+\end{document}
