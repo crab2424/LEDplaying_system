@@ -41,17 +41,16 @@
 
 \section{進捗サマリー（概要）}
 \begin{itemize}
- \item 全体進捗率: 60\%
+ \item 全体進捗率: 80\%
  \item マイルストーン達成状況: 達成
  \item 主要成果:
  \begin{itemize}
-    \item 演奏開始・停止ボタンの実装
-    \item 楽譜配列の完成
-    \item ヴァイオリン音のスペクトラム分析・波形合成（進行中・進捗50\%）
+    \item ヴァイオリン音のスペクトラム分析・波形合成（完了・進捗100\%）
+    \item ヴァイオリン音・開始停止スイッチの単体動作テスト（完了）
  \end{itemize}
- \item 重大課題（影響度）: ヴァイオリンの音の再現（高）
+ \item 重大課題（影響度）: なし（前週の重大課題「ヴァイオリンの音の再現」は解決済み）
  \begin{itemize}
-    \item 倍音波形の合成のみではヴァイオリンの音色を完全に再現できなかったため，引き続きスペクトラム分析を行い，実際のヴァイオリン音の特徴を抽出して再現する方法を模索中である．
+    \item 40倍音までのスペクトル分析に基づく倍音調整により，実楽器に近いヴァイオリン音を再現できた．
  \end{itemize}
 
 \end{itemize}
@@ -64,13 +63,13 @@
     \begin{tabular}{lcccccc} \hline
       作業項目 & 開始日 & 予定完了日 & 状態 & 進捗率 & 依存関係・ブロッカー & コメント \\ \hline
       楽器演奏 & 05/20 & 05/23 & 完了 & 100\% & なし & - \\
-      演奏開始・停止ボタン（設計） & 05/23 & 05/27 & 完了 & 100\% & 部品入手 & 今週完了 \\
+      演奏開始・停止ボタン（設計） & 05/23 & 05/27 & 完了 & 100\% & 部品入手 & - \\
       楽器音 & 05/23 & 05/27 & 完了 & 100\% & 楽器演奏 & - \\
-      楽譜配列 & 05/26 & 05/28 & 完了 & 100\% & 楽器音 & 今週完了 \\
-      ヴァイオリン音 & 05/28 & 06/12 & 進行中 & 50\% & 楽器音 & - \\
-      演奏開始・停止ボタン（実装） & 05/28 & 06/09 & 完了 & 100\% & 設計 & 追加実装・今週完了 \\
-      開始停止スイッチテスト & 06/13 & 06/19 & 未着手 & 0\% & 実装の完了 & - \\
-      楽器音テスト & 06/13 & 06/19 & 未着手 & 0\% & 実装の完了 & - \\
+      楽譜配列 & 05/26 & 05/28 & 完了 & 100\% & 楽器音 & - \\
+      ヴァイオリン音 & 05/28 & 06/12 & 完了 & 100\% & 楽器音 & 今週完了 \\
+      演奏開始・停止ボタン（実装） & 05/28 & 06/09 & 完了 & 100\% & 設計 & - \\
+      開始停止スイッチテスト & 06/13 & 06/19 & 進行中 & 50\% & 実装の完了 & 単体は確認済，結合は他担当待ち \\
+      楽器音テスト & 06/13 & 06/19 & 進行中 & 50\% & 実装の完了 & 単体は確認済，結合は他担当待ち \\
       \hline
     \end{tabular}
   }
@@ -146,10 +145,10 @@
     {楽器音}{2026-05-23}{2026-05-27} \\
   \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
     {楽譜配列}{2026-05-26}{2026-05-28} \\
-  % ---- 未完了・進行中タスク (violet!50) ----
-  \ganttbar[bar/.append style={fill=violet!50, draw=violet!80}]
+  % ---- ヴァイオリン音：今週完了 (gray!60) ----
+  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
     {ヴァイオリン音}{2026-05-28}{2026-05-31}
-  \ganttbar[bar/.append style={fill=violet!50, draw=violet!80},
+  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80},
     bar label node/.append style={opacity=0}]
     {}{2026-06-04}{2026-06-12} \\
   \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
@@ -157,6 +156,7 @@
   \ganttbar[bar/.append style={fill=gray!60, draw=gray!80},
     bar label node/.append style={opacity=0}]
     {}{2026-06-04}{2026-06-09} \\
+  % ---- 進行中タスク (violet!50)：単体確認済・結合は他担当待ち ----
   \ganttbar[bar/.append style={fill=violet!50, draw=violet!80}]
     {開始停止スイッチテスト}{2026-06-13}{2026-06-19} \\
   \ganttbar[bar/.append style={fill=violet!50, draw=violet!80}]
@@ -176,18 +176,101 @@
   \scalebox{0.88}{
     \begin{tabular}{ccp{7.5cm}} \hline
       日付 & 作業時間 & 作業内容・備考 \\ \hline
-      2026/05/27 & 4h & ヴァイオリン波形合成・楽譜配列配置 \\[4pt]
-      2026/05/28 & 2h & ヴァイオリン波形合成\\[4pt]
-      2026/05/30 & 6h & 演奏開始・停止ボタンについての設計・実装\\[4pt]
-      2026/06/05 & 2h & ヴァイオリン音のスペクトラム分析・波形合成\\[4pt]
-      2026/06/06 & 2h & ヴァイオリン音のスペクトラム分析・波形合成\\[4pt]
-      2026/06/07 & 1h & ヴァイオリン音のスペクトラム分析・波形合成\\[4pt]
-      2026/06/09 & 2h & ヴァイオリン音のスペクトラム分析・波形合成\\[4pt]
+      2026/06/10 & 4h & ヴァイオリン音・開始停止スイッチの単体動作テスト[4pt]\\
+      2026/06/16 & 4h & ヴァイオリン音の倍音調整（40倍音まで）・音色再現性テスト[4pt]\\
         % ※必要に応じて行を追加
       \hline
     \end{tabular}
   }
 
+\end{table}
+
+% ===== 今週追加：ログの詳細（TPM・TRL） =====
+\section{ログの詳細}
+
+\subsection{ヴァイオリン音再現の詳細}
+目標とする実ヴァイオリン音と，本システムの生成波形のそれぞれにスペクトル分析を行い，
+各倍音の大きさを読み取った．再現性を高めるため40倍音までの振幅を計測し，
+それに合わせて倍音を調整することで，実楽器に近いヴァイオリン音を近似できた．
+評価結果を図\ref{fig:violin_result}に示す．
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\linewidth]{violin_result.png}
+  \caption{ヴァイオリン音の音色評価結果（音色特徴量比較）}
+  \label{fig:violin_result}
+\end{figure}
+
+\subsection{技術性能指標（TPM）}
+TPMはシステムの最終的な性能に関わる技術を管理するための指標である．
+本プロジェクトの各指標のうち，自分の担当は「\textbf{音色の再現性}」である．
+実楽器音の録音と本システムの出力音を比較し，人間の音色知覚を構成する
+以下の4特徴量で再現精度を評価する\cite{McAdams}．各楽器・音程ごとに計測し，平均で評価する．
+
+\begin{itemize}
+  \item \textbf{立ち上がり時間（AT）}：RMSエンベロープがピークに到達するまでの時間[ms]．
+        目標は全音程平均で60\,ms以内\cite{Siedenburg}．
+  \item \textbf{スペクトル重心（SC）}：持続区間のスペクトル重心周波数[Hz]．
+        目標は相対差の平均で24\%以内\cite{Wun}．
+  \item \textbf{スペクトル変動度（DSV）}：フレーム間のL2相対変化量の平均[\%]．
+        目標はズレの平均で16\%以内\cite{Horner}．
+  \item \textbf{奇偶倍音比（OER）}：pYIN\cite{pyin}でF0を推定し，奇数次倍音と
+        全倍音のエネルギー比を算出．目標は相対差の平均で20\%以内\cite{Caclin}．
+\end{itemize}
+
+今週の計測結果（全7音程の平均）を表\ref{tab:tpm}に示す．いずれの特徴量も目標値を満たし，
+担当指標である音色の再現性は達成と判定した（詳細は図\ref{fig:violin_result}）．
+
+\begin{table}[H]
+  \centering
+  \caption{音色の再現性（TPM）計測結果}
+  \label{tab:tpm}
+  \scalebox{0.9}{
+    \begin{tabular}{lcccc} \hline
+      特徴量 & 元音平均 & 合成音平均 & 差（目標） & 判定 \\ \hline
+      AT [ms]  & 809.4 & 769.5 & 39.6\,ms（$\leq$60\,ms） & 達成 \\
+      SC [Hz]  & 2332  & 2492  & 12.2\%（$\leq$24\%） & 達成 \\
+      DSV [\%] & 28.6  & 40.5  & 11.67\%（$\leq$16\%） & 達成 \\
+      OER [0--1] & 0.746 & 0.746 & 0.097（$\leq$0.20） & 達成 \\
+      \hline
+    \end{tabular}
+  }
+\end{table}
+
+\subsection{技術成熟度（TRL）}
+TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab:trl}に示す．
+
+\begin{table}[H]
+  \centering
+  \caption{TRLの定義}
+  \label{tab:trl}
+  \scalebox{0.9}{
+    \begin{tabular}{cp{10cm}} \hline
+      TRL & 定義 \\ \hline
+      1 & 概念レベル：アイディアや原理が確立されており，説明できるレベル \\
+      2 & 基本動作レベル：単体で動作確認が可能なレベル \\
+      3 & 結合動作レベル：機能を結合し，実際の使用環境に近い環境で動作確認が可能なレベル \\
+      4 & 実運用レベル：実際の使用環境で安定的な稼働が確認できるレベル \\
+      \hline
+    \end{tabular}
+  }
+\end{table}
+
+自分の担当機能の現状を表\ref{tab:trl_status}に示す．ヴァイオリン音生成・開始停止スイッチは
+いずれも単体での動作確認が完了しているため\textbf{TRL2}に到達している．
+機能を結合した結合テストは他担当の実装待ちであり，TRL3には未到達である．
+
+\begin{table}[H]
+  \centering
+  \caption{担当機能のTRL現状}
+  \label{tab:trl_status}
+  \scalebox{0.9}{
+    \begin{tabular}{lcp{6cm}} \hline
+      担当機能 & 現在のTRL & 根拠 \\ \hline
+      ヴァイオリン音生成 & TRL2 & 単体で目標音色を再現・計測済み．結合は他担当待ち \\
+      開始停止スイッチ & TRL2 & 単体で開始・停止動作を確認済み．結合は他担当待ち \\
+      \hline
+    \end{tabular}
+  }
 \end{table}
 
 \section{課題管理}
@@ -207,9 +290,9 @@
   \item 原因: 実楽器の波形と倍音波形の合成のみではヴァイオリンの音色を完全に再現できないため．
   \item 影響度: 高
   \item 優先度: 高
-  \item 対応策: 実際のヴァイオリン音に対してスペクトラム分析を行い，実際のヴァイオリン音の特徴を抽出して再現する．
+  \item 対応策: 実際のヴァイオリン音に対してスペクトラム分析を行い，40倍音までの倍音比を抽出して再現に反映した．
   \item 期限: 06/12
-  \item 状態: 対応中
+  \item 状態: 完了（音色の再現性テストで4特徴量とも目標を達成）
 \end{itemize}
 
 \subsection{コード統合}
@@ -282,33 +365,13 @@
 
 \section{次回計画（次回までに実施する内容）}
 \begin{itemize}
-  \item 実施事項①：ヴァイオリン音の完成
+  \item 実施事項：結合テスト（他担当との統合）
   \begin{itemize}
-    \item スペクトラム分析を継続し，実際のヴァイオリン音の倍音比を抽出してProcessingの実装へ反映する．
+    \item 他担当の実装完了後，ヴァイオリン音・開始停止スイッチを結合し，実使用環境に近い条件で動作テストを実施する（TRL3を目指す）．
   \end{itemize}
   \item 達成基準：
   \begin{itemize}
-    \item 生成音のスペクトラムがヴァイオリン実測値と整合し，聴感評価において自然な音色であると判断できること．
-  \end{itemize}
-  \item 期限：2026/06/12
-
-  \item 実施事項②：楽器音テスト
-  \begin{itemize}
-    \item 実装した楽器音（ヴァイオリン音を含む）の動作テストを実施する．
-  \end{itemize}
-  \item 達成基準：
-  \begin{itemize}
-    \item 全音程において対応する音が正しく鳴り，ヴァイオリン音の音色が許容範囲内で再現されていること．
-  \end{itemize}
-  \item 期限：2026/06/19
-
-  \item 実施事項③：開始停止スイッチテスト
-  \begin{itemize}
-    \item 実装した演奏開始・停止スイッチについて，実際の演奏処理を含めた動作テストを実施する．
-  \end{itemize}
-  \item 達成基準：
-  \begin{itemize}
-    \item スイッチ押下により演奏の開始・停止が正しく切り替わり，チャタリングによる誤作動が発生しないこと．
+    \item 結合状態で演奏の開始・停止および各音の発音が正しく動作すること．
   \end{itemize}
   \item 期限：2026/06/19
 \end{itemize}
@@ -326,6 +389,12 @@
 \bibitem{digitalread} Arduino (2026), "digitalRead()". Arduino Reference, \url{https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/}. (2026年5月30日 参照)
 \bibitem{millis} Arduino (2026), "millis()". Arduino Reference, \url{https://www.arduino.cc/reference/en/language/functions/time/millis/}. (2026年5月30日 参照)
 \bibitem{debounce} Arduino (2026), "Debounce". Built-in Examples, \url{https://docs.arduino.cc/built-in-examples/digital/Debounce/}. (2026年5月30日 参照)
+\bibitem{McAdams} S. McAdams et al., "Perceptual scaling of synthesized musical timbres," \textit{Psychological Research}, vol. 58, pp. 177--192, 1995.
+\bibitem{Siedenburg} K. Siedenburg and S. McAdams, "Four distinctions for the auditory 'wastebasket' of timbre," \textit{Frontiers in Psychology}, vol. 8, p. 1747, 2017.
+\bibitem{Wun} C. Wun and A. Horner, "Perceptual wavetable matching of musical instrument sounds," \textit{Journal of the Audio Engineering Society}, vol. 64, no. 1/2, pp. 35--46, 2016.
+\bibitem{Horner} A. Horner et al., "Perceptual sensitivity to spectral flux of musical instrument sounds," \textit{Journal of the Audio Engineering Society}, vol. 59, no. 12, pp. 873--886, 2011.
+\bibitem{pyin} M. Mauch and S. Dixon, "pYIN: A fundamental frequency estimator using probabilistic threshold distributions," in \textit{Proc. IEEE ICASSP}, 2014, pp. 659--663.
+\bibitem{Caclin} A. Caclin et al., "Acoustic correlates of timbre space dimensions: A confirmatory study using synthetic tones," \textit{Journal of the Acoustical Society of America}, vol. 118, no. 1, pp. 471--482, 2005.
 \end{thebibliography}
 
 \end{document}
