@@ -48,7 +48,7 @@
     \item ヴァイオリン音のスペクトラム分析・波形合成（完了・進捗100\%）
     \item ヴァイオリン音・開始停止スイッチの単体動作テスト（完了）
  \end{itemize}
- \item 重大課題（影響度）: なし（前週の重大課題「ヴァイオリンの音の再現」は解決済み）
+ \item 重大課題（影響度）: なし
  \begin{itemize}
     \item 40倍音までのスペクトル分析に基づく倍音調整により，実楽器に近いヴァイオリン音を再現できた．
  \end{itemize}
@@ -192,6 +192,8 @@
 目標とする実ヴァイオリン音と，本システムの生成波形のそれぞれにスペクトル分析を行い，
 各倍音の大きさを読み取った．再現性を高めるため40倍音までの振幅を計測し，
 それに合わせて倍音を調整することで，実楽器に近いヴァイオリン音を近似できた．
+なお，比較にあたっては各音を基準音と音量正規化・音程確認した上で行っており，
+音程のずれは知覚上許容される範囲に収まることを確認した\cite{Vurma}．
 評価結果を図\ref{fig:violin_result}に示す．
 \begin{figure}[H]
   \centering
@@ -202,18 +204,19 @@
 
 \subsection{技術性能指標（TPM）}
 TPMはシステムの最終的な性能に関わる技術を管理するための指標である．
-本プロジェクトの各指標のうち，自分の担当は「\textbf{音色の再現性}」である．
-実楽器音の録音と本システムの出力音を比較し，人間の音色知覚を構成する
-以下の4特徴量で再現精度を評価する\cite{McAdams}．各楽器・音程ごとに計測し，平均で評価する．
+本プロジェクトの各指標のうち，自分の担当は「音色の再現性」である．
+実楽器音の録音と本システムの出力音を比較する．演奏の正確性（accuracy）は
+一意に定義することが難しいため\cite{Larrouy}，本テストでは人間の音色知覚を構成する
+以下の4特徴量を定量指標として再現精度を評価する\cite{McAdams}．各楽器・音程ごとに計測し，平均で評価する．
 
 \begin{itemize}
-  \item \textbf{立ち上がり時間（AT）}：RMSエンベロープがピークに到達するまでの時間[ms]．
+  \item 立ち上がり時間（AT）：RMSエンベロープがピークに到達するまでの時間[ms]．
         目標は全音程平均で60\,ms以内\cite{Siedenburg}．
-  \item \textbf{スペクトル重心（SC）}：持続区間のスペクトル重心周波数[Hz]．
+  \item スペクトル重心（SC）：持続区間のスペクトル重心周波数[Hz]．
         目標は相対差の平均で24\%以内\cite{Wun}．
-  \item \textbf{スペクトル変動度（DSV）}：フレーム間のL2相対変化量の平均[\%]．
-        目標はズレの平均で16\%以内\cite{Horner}．
-  \item \textbf{奇偶倍音比（OER）}：pYIN\cite{pyin}でF0を推定し，奇数次倍音と
+  \item スペクトル変動度（DSV）：フレーム間のL2相対変化量の平均[\%]．
+        目標はズレの平均で16\%以内\cite{McAdams}．
+  \item 奇偶倍音比（OER）：pYINアルゴリズムでF0を推定し，奇数次倍音と
         全倍音のエネルギー比を算出．目標は相対差の平均で20\%以内\cite{Caclin}．
 \end{itemize}
 
@@ -256,7 +259,7 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 \end{table}
 
 自分の担当機能の現状を表\ref{tab:trl_status}に示す．ヴァイオリン音生成・開始停止スイッチは
-いずれも単体での動作確認が完了しているため\textbf{TRL2}に到達している．
+いずれも単体での動作確認が完了しているためTRL2に到達している．
 機能を結合した結合テストは他担当の実装待ちであり，TRL3には未到達である．
 
 \begin{table}[H]
@@ -275,26 +278,6 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 
 \section{課題管理}
 
-\subsection{演奏開始・停止ボタンの設計の遅延について}
-\begin{itemize}
-  \item 原因: 設計に想定以上の時間を要し，予定完了日（05/27）より4日遅れた．
-  \item 影響度: 低
-  \item 優先度: 低（完了済み）
-  \item 対応策: 設計・実装ともに完了しており，後続タスクのスケジュールへの影響は軽微であるため，対応不要．
-  \item 期限: 完了済み
-  \item 状態: 完了
-\end{itemize}
-
-\subsection{ヴァイオリン音再現}
-\begin{itemize}
-  \item 原因: 実楽器の波形と倍音波形の合成のみではヴァイオリンの音色を完全に再現できないため．
-  \item 影響度: 高
-  \item 優先度: 高
-  \item 対応策: 実際のヴァイオリン音に対してスペクトラム分析を行い，40倍音までの倍音比を抽出して再現に反映した．
-  \item 期限: 06/12
-  \item 状態: 完了（音色の再現性テストで4特徴量とも目標を達成）
-\end{itemize}
-
 \subsection{コード統合}
 \begin{itemize}
   \item 原因: 各担当者が個別に実装を進めているため，統合時にコードの調整が必要となる．
@@ -310,21 +293,22 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 % ※優先度＝対応の緊急性
 
 \section{AI利用状況と検証}
-\subsection{利用内容}
-% 複数回使用すると思うのでその度表を追加
+\subsection{利用内容：合成波形の自動録音プログラム}
 \begin{itemize}
-    \item 利用目的：実装
+    \item 利用目的：楽器音単体テストに使用する音源の実装
     \item 入力（プロンプト要旨）：
     \begin{itemize}
-        \item タクトスイッチの押下とLEDのON/OFF制御の対応付けについて質問した．
-        \item 点滅時の点灯間隔を短縮（高速化）する方法について質問した．
-        \item チャタリング対策（ソフトウェアデバウンス）の実装方法について質問した．
+        \item Processingで合成した波形音を一音ずつ自動で録音するプログラムの作成を依頼した．
+        \item 既存の波形生成pdeとは別ファイルとし，波形の内容（合成方法・倍音構成）は同一とする旨を指定した．
+        \item 立ち上がり（noteOn）から1秒間鳴らし，C5〜B5の白鍵7音（\texttt{C5 D5 E5 F5 G5 A5 B5}）を1音ずつ録音すること，および録音時間をコード内の定数で変更できる構造にすることを指定した．
+        \item 録音時に必ずしも音をスピーカから出力する必要はない旨を指定した．
     \end{itemize}
     \item 出力概要：
     \begin{itemize}
-        \item タクトスイッチ制御：\texttt{digitalRead()} でスイッチ状態を読み取り，\texttt{HIGH}/\texttt{LOW} をフラグに反映してLEDのON/OFFを切り替える実装が得られた．
-        \item 点灯間隔の短縮：\texttt{delay()} の値を削減する方法，および \texttt{millis()} を用いた非ブロッキング点滅実装が得られた．
-        \item チャタリング対策：前回の状態変化から一定時間（例：20\,ms）経過した場合のみ状態を更新するデバウンス処理の実装が得られた．
+        \item 録音仕様：C5〜B5の白鍵7音を1音ずつ自動で \texttt{recordings/C5.wav} 〜 \texttt{recordings/B5.wav} に保存する実装が得られた．
+        \item 録音タイミング：noteOnから \texttt{RECORD\_SECONDS} 秒間を録音し，1音終わると即 \texttt{doUnpatch()}（\texttt{violin.pde} 内で定義した自作ヘルパー関数．内部で各倍音 \texttt{UGen} に対して Minim の \texttt{unpatch()}\cite{minim_unpatch} を呼び出し，出力との接続を解除するラッパー）で停止．\texttt{GAP\_SECONDS} の無音区間を挟んで次の音へ遷移する制御が得られた．
+        \item 録音時間の変更：コード冒頭の定数 \texttt{final float RECORD\_SECONDS = 1.0;} を書き換えることで，任意の録音長に変更可能である．
+        \item 音出力について：Minimの \texttt{AudioRecorder} はラインアウトを録音する仕組みのため，実行中はスピーカからも音が鳴る（録音自体に再生は必須ではないという条件は満たす．気になる場合はシステム音量を下げてもファイルには影響しない）旨の補足が得られた．
     \end{itemize}
 \end{itemize}
 
@@ -333,18 +317,17 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 \begin{itemize}
   \item 検証方法:
   \begin{itemize}
-      \item 実機による動作確認・比較
+      \item 実機での実行による動作確認，および生成されたwavファイルの再生確認．
   \end{itemize}
   \item 参照資料:
   \begin{itemize}
-      \item Arduinoの\texttt{digitalRead()}関数に関する公式リファレンス\cite{digitalread}．
-      \item Arduinoの\texttt{millis()}関数に関する公式リファレンス\cite{millis}．
-      \item チャタリング対策（デバウンス）に関する技術資料\cite{debounce}．
+      \item Processing公式リファレンス\cite{processing}．
   \end{itemize}
   \item 検証手順：
   \begin{enumerate}
-      \item 実装したスイッチ回路をArduinoに接続し，押下時にLEDがON，再押下でOFFとなることを確認する．
-      \item デバウンス処理の有無でスイッチの誤作動頻度を比較し，チャタリング抑制効果を確認する．
+      \item 録音プログラム（pde）を実行し，実行時にエラーが発生しないことを確認する．
+      \item \texttt{recordings/} ディレクトリ配下にC5〜B5の白鍵7音分のwavファイルが生成されていることを確認する．
+      \item 生成されたwavファイルを再生し，意図した波形音が正しく録音されていることを確認する．
   \end{enumerate}
 \end{itemize}
 
@@ -352,14 +335,13 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 \begin{itemize}
   \item 一致点：
   \begin{itemize}
-    \item \texttt{millis()} を用いた非ブロッキング処理はArduino公式リファレンス\cite{millis}でも推奨される手法であり，実装内容と整合する．
-    \item ソフトウェアデバウンスにおける一般的な閾値（10〜50\,ms）の範囲内で実装されている．
+    \item AIが提示した実装方法（Minimの\texttt{AudioRecorder}による録音，および自作ヘルパー \texttt{doUnpatch()} を介した Minim \texttt{UGen.unpatch()}\cite{minim_unpatch} による発音停止）は，Processing公式リファレンス\cite{processing}およびMinim公式ドキュメントの記載と一致する．
   \end{itemize}
   \item 不一致・疑義：なし
   \item 最終判断：採用
   \item 根拠：
   \begin{itemize}
-    \item 実装時の実機動作確認により，スイッチのON/OFF制御・チャタリング抑制のいずれも正常に動作することを確認した（実際の演奏処理を含む正式な開始停止スイッチテストは別途実施予定である）．
+    \item 生成されたwavファイルと，元の波形生成pdeから出力される音源とを聴感上で比較し，差異がないことを確認した．
   \end{itemize}
 \end{itemize}
 
@@ -386,15 +368,14 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 
 
 \begin{thebibliography}{9}
-\bibitem{digitalread} Arduino (2026), "digitalRead()". Arduino Reference, \url{https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/}. (2026年5月30日 参照)
-\bibitem{millis} Arduino (2026), "millis()". Arduino Reference, \url{https://www.arduino.cc/reference/en/language/functions/time/millis/}. (2026年5月30日 参照)
-\bibitem{debounce} Arduino (2026), "Debounce". Built-in Examples, \url{https://docs.arduino.cc/built-in-examples/digital/Debounce/}. (2026年5月30日 参照)
-\bibitem{McAdams} S. McAdams et al., "Perceptual scaling of synthesized musical timbres," \textit{Psychological Research}, vol. 58, pp. 177--192, 1995.
-\bibitem{Siedenburg} K. Siedenburg and S. McAdams, "Four distinctions for the auditory 'wastebasket' of timbre," \textit{Frontiers in Psychology}, vol. 8, p. 1747, 2017.
-\bibitem{Wun} C. Wun and A. Horner, "Perceptual wavetable matching of musical instrument sounds," \textit{Journal of the Audio Engineering Society}, vol. 64, no. 1/2, pp. 35--46, 2016.
-\bibitem{Horner} A. Horner et al., "Perceptual sensitivity to spectral flux of musical instrument sounds," \textit{Journal of the Audio Engineering Society}, vol. 59, no. 12, pp. 873--886, 2011.
-\bibitem{pyin} M. Mauch and S. Dixon, "pYIN: A fundamental frequency estimator using probabilistic threshold distributions," in \textit{Proc. IEEE ICASSP}, 2014, pp. 659--663.
-\bibitem{Caclin} A. Caclin et al., "Acoustic correlates of timbre space dimensions: A confirmatory study using synthetic tones," \textit{Journal of the Acoustical Society of America}, vol. 118, no. 1, pp. 471--482, 2005.
+\bibitem{processing} Processing Foundation (2026), "Processing Reference". \url{https://processing.org/reference/}. (2026年6月16日 参照)
+\bibitem{minim_unpatch} D. Di Fede (2026), "Minim : UGen.unpatch()". \url{http://code.compartmental.net/minim/ugen_method_unpatch.html}. (2026年6月16日 参照)
+\bibitem{Vurma} A. Vurma and J. Ross, "Production and perception of musical intervals," \textit{Music Perception}, vol. 23, no. 4, pp. 331--344, 2006.
+\bibitem{Larrouy} P. Larrouy-Maestri, "I know it when I hear it," \textit{Music \& Science}, vol. 1, 2018.
+\bibitem{McAdams} S. McAdams, S. Winsberg, S. Donnadieu, G. De Soete, and J. Krimphoff, "Perceptual scaling of synthesized musical timbres: Common dimensions, specificities, and latent subject classes," \textit{Psychological Research}, vol. 58, no. 3, pp. 177--192, 1995.
+\bibitem{Caclin} A. Caclin, S. McAdams, B. K. Smith, and S. Winsberg, "Acoustic correlates of timbre space dimensions: A confirmatory study using synthetic tones," \textit{The Journal of the Acoustical Society of America}, vol. 118, no. 1, pp. 471--482, 2005.
+\bibitem{Siedenburg} K. Siedenburg, "Specifying the perceptual relevance of onset transients for musical instrument identification," \textit{The Journal of the Acoustical Society of America}, vol. 145, no. 2, pp. 1078--1087, 2019.
+\bibitem{Wun} S. Wun, A. Horner, and B. Wu, "Effect of spectral centroid manipulation on discrimination and identification of instrument timbres," \textit{Journal of the Audio Engineering Society}, vol. 62, no. 9, pp. 575--583, 2014.
 \end{thebibliography}
 
 \end{document}
