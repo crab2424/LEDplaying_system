@@ -132,7 +132,7 @@
   bar label node/.append style={text width=4.8cm, align=right},
   bar height=0.55,
   bar top shift=0.23,
-]{2026-05-20}{2026-06-19}
+]{2026-05-20}{2026-06-25}
   \gantttitlecalendar{month=shortname, day} \\
   % ---- 完了タスク (gray!60) ----
   \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
@@ -158,7 +158,10 @@
   \ganttbar[bar/.append style={fill=violet!50, draw=violet!80}]
     {開始停止スイッチテスト}{2026-06-13}{2026-06-19} \\
   \ganttbar[bar/.append style={fill=violet!50, draw=violet!80}]
-    {楽器音テスト}{2026-06-13}{2026-06-19}
+    {楽器音テスト}{2026-06-13}{2026-06-19} \\
+  % ---- 今週追加：実機結合による輪唱演奏 ----
+  \ganttbar[bar/.append style={fill=violet!50, draw=violet!80}]
+    {輪唱演奏（実機結合）}{2026-06-17}{2026-06-25}
 \end{ganttchart}%
 }
 \caption{担当箇所ガントチャート（現在：灰＝完了，紫＝未完了）}
