@@ -24,7 +24,7 @@ ArduinoLEDMatrix matrix;
 // ============================================================
 // 担当する楽器ID (指揮者側と同じマッピング)
 //   0 = ピアノ(紫), 1 = バイオリン(赤), 2 = フルート(青), 3 = ドラム(緑)
-const uint8_t MY_INSTRUMENT_ID = 2;  // ← フルート担当の場合
+const uint8_t MY_INSTRUMENT_ID = 0;  // ← フルート担当の場合
 
 // 担当色 (MY_INSTRUMENT_IDに対応する色)
 const uint8_t MY_COLOR_ID = MY_INSTRUMENT_ID;
@@ -284,8 +284,14 @@ void loop() {
 
         // lyricTiming[] が非ゼロのスロットで次の文字を表示する
         // （melody の休符スロットも歌詞表示に使えるので「1音=2文字」が表現可能）
-        if (lyricTiming[noteNum] > 0.0f && lyricIndex < LYRICS_LENGTH && blinkInterval > 0) {
-          uint32_t lyricMs = (uint32_t)(blinkInterval * lyricTiming[noteNum]);
+        // 初回点滅時は blinkInterval=0 なので、note.duration をフォールバックに使う
+        if (lyricTiming[noteNum] > 0.0f && lyricIndex < LYRICS_LENGTH) {
+          uint32_t lyricMs;
+          if (blinkInterval > 0) {
+            lyricMs = (uint32_t)(blinkInterval * lyricTiming[noteNum]);
+          } else {
+            lyricMs = note.duration;
+          }
           matrix.loadFrame(kaeruNoUta[lyricIndex]);
           lyricShowing = true;
           lyricClearAt = now + lyricMs;
