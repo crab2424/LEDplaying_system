@@ -18,10 +18,10 @@
 //    光らせたい色の行だけコメントアウトを外してください
 //    (複数同時に有効にすると紫など混色になります)
 // ============================================================
-#define COLOR_RED     // 赤を点灯する
+//#define COLOR_RED     // 赤を点灯する
 //#define COLOR_GREEN   // 緑を点灯する
 //#define COLOR_BLUE    // 青を点灯する
-//#define COLOR_PURPLE  // 紫を点灯する (赤+青 同時点灯)
+#define COLOR_PURPLE  // 紫を点灯する (赤+青 同時点灯)
 
 // ============================================================
 //  ★ ピン設定
@@ -90,6 +90,10 @@ HttpClient httpClient = HttpClient(wifiClient, serverAddress, webPort);
 const unsigned long HEARTBEAT_INTERVAL = 10000;
 unsigned long lastHeartbeat = 0;
 
+// WiFiに接続できなかった場合でも単体動作できるようにするためのフラグ
+bool wifiReady = false;
+const unsigned long WIFI_CONNECT_TIMEOUT = 10000; // [ms] これを超えたらWiFi無しで起動
+
 // ============================================================
 //  点灯色を決定してピンに出力する関数
 // ============================================================
@@ -148,6 +152,8 @@ void sendHeartbeat() {
 //  ・play   : 即時反映
 // ============================================================
 void handleWebRequest() {
+  if (!wifiReady) return;  // WiFi未接続時は何もしない（単体動作モード）
+
   unsigned long now = millis();
   if (now - lastHeartbeat >= HEARTBEAT_INTERVAL) {
     sendHeartbeat();
@@ -210,33 +216,44 @@ void setup() {
 
   applyLED(0);
 
-  // WiFi 接続
+  // WiFi 接続 (タイムアウト付き。接続できなくても単体モードで起動する)
   Serial.print("Connecting to WiFi...");
   WiFi.begin(ssid, pass);
-  while (WiFi.status() != WL_CONNECTED) {
+  unsigned long wifiStart = millis();
+  while (WiFi.status() != WL_CONNECTED &&
+         millis() - wifiStart < WIFI_CONNECT_TIMEOUT) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nConnected!");
 
-  Serial.print("Waiting for IP...");
-  while (WiFi.localIP() == IPAddress(0, 0, 0, 0)) {
-    delay(500);
-    Serial.print(".");
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\nConnected!");
+
+    Serial.print("Waiting for IP...");
+    unsigned long ipStart = millis();
+    while (WiFi.localIP() == IPAddress(0, 0, 0, 0) &&
+           millis() - ipStart < WIFI_CONNECT_TIMEOUT) {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println();
+    Serial.print("Arduino IP: ");
+    Serial.println(WiFi.localIP());
+
+    // サーバーへ自己登録
+    Serial.println("Registering to server...");
+    String regPath = "/register?id=" + myID + "&type=" + myType;
+    httpClient.get(regPath);
+    httpClient.responseStatusCode();
+    httpClient.stop();
+
+    webServer.begin();
+    wifiReady = true;
+    Serial.println("Ready. Waiting for data...\n");
+  } else {
+    Serial.println("\nWiFi connect failed. Standalone mode.");
+    Serial.println("Ready (standalone). Use switch & knob.\n");
   }
-  Serial.println();
-  Serial.print("Arduino IP: ");
-  Serial.println(WiFi.localIP());
-
-  // サーバーへ自己登録
-  Serial.println("Registering to server...");
-  String regPath = "/register?id=" + myID + "&type=" + myType;
-  httpClient.get(regPath);
-  httpClient.responseStatusCode();
-  httpClient.stop();
-
-  webServer.begin();
-  Serial.println("Ready. Waiting for data...\n");
 }
 
 // ============================================================
