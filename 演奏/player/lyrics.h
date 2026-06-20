@@ -3,102 +3,13 @@
 #define MELODY_LENGTH 62
 
 #include <stdint.h>
+#include "katakana.h"
 
-// extern const uint32_t a[3];
-
-// extern const uint32_t i[3];
-
-// extern const uint32_t u[3];
-
-// extern const uint32_t e[3];
-
-// extern const uint32_t o[3];
-
-// extern const uint32_t ka[3];
-
-// extern const uint32_t ki[3];
-
-// extern const uint32_t ku[3];
-
-// extern const uint32_t ke[3];
-
-// extern const uint32_t ko[3];
-
-// extern const uint32_t sa[3];
-
-// extern const uint32_t si[3];
-
-// extern const uint32_t su[3];
-
-// extern const uint32_t se[3];
-
-// extern const uint32_t so[3];
-
-// extern const uint32_t ta[3];
-
-// extern const uint32_t ti[3];
-
-// extern const uint32_t tu[3];
-
-// extern const uint32_t te[3];
-
-// extern const uint32_t to[3];
-
-// extern const uint32_t na[3];
-
-// extern const uint32_t ni[3];
-
-// extern const uint32_t nu[3];
-
-// extern const uint32_t ne[3];
-
-// extern const uint32_t no[3];
-
-// extern const uint32_t ha[3];
-
-// extern const uint32_t hi[3];
-
-// extern const uint32_t hu[3];
-
-// extern const uint32_t he[3];
-
-// extern const uint32_t ho[3];
-
-// extern const uint32_t ma[3];
-
-// extern const uint32_t mi[3];
-
-// extern const uint32_t mu[3];
-
-// extern const uint32_t me[3];
-
-// extern const uint32_t mo[3];
-
-// extern const uint32_t ya[3];
-
-// extern const uint32_t yu[3];
-
-// extern const uint32_t yo[3];
-
-// extern const uint32_t ra[3];
-
-// extern const uint32_t ri[3];
-
-// extern const uint32_t ru[3];
-
-// extern const uint32_t re[3];
-
-// extern const uint32_t ro[3];
-
-// extern const uint32_t wa[3];
-
-// extern const uint32_t wo[3];
-
-// extern const uint32_t n[3];
-
-// extern const uint32_t ga[3];
-
-extern const uint32_t *kaeruNoUta[36];
+// ============================================================
+// LEDマトリクス用 歌詞配列（カエルの歌：36文字）
+// ============================================================
+#define LYRICS_LENGTH 36
+extern const uint32_t *kaeruNoUta[LYRICS_LENGTH];
 
 // ============================================================
 // 楽譜配列（melody.pde より移植）
@@ -135,6 +46,24 @@ static const float noteAmplitude[MELODY_LENGTH] = {
   1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
   1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
   1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
+};
+
+// ============================================================
+// 歌詞表示タイミング（melody/duration と同じ MELODY_LENGTH 長）
+//   0.0f : このスロットでは歌詞を進めない／表示しない
+//   >0   : kaeruNoUta の次の文字を表示し、その拍数分だけ表示
+//
+//   実時間ms = blinkInterval(ms/拍) * lyricTiming[i]
+//
+//   melody スロット (休符含む) と独立に進むので、
+//   「1音=2文字」の箇所は休符スロットを使って2文字目を流せる。
+// ============================================================
+static const float lyricTiming[MELODY_LENGTH] = {
+  2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f,
+  2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
   1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
 };
 

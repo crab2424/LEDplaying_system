@@ -6,7 +6,10 @@
 
 #include <Wire.h>
 #include <Adafruit_TCS34725.h>
-#include "lyrics.h"  // 楽譜配列 (melody[], duration[], pitchFreqHz[] など)
+#include "Arduino_LED_Matrix.h"  // 内蔵 LEDマトリクス制御 (Arduino UNO R4)
+#include "lyrics.h"              // 楽譜配列 (melody[], duration[], pitchFreqHz[] など) + kaeruNoUta[]
+
+ArduinoLEDMatrix matrix;
 
 // ============================================================
 //  ★ デバッグモード設定
@@ -86,7 +89,15 @@ uint16_t clearMax      = 0;
 bool     peakDetecting = false;
 uint8_t  peakDownCount = 0;
 
-uint8_t noteNum = 0;  // 楽譜の現在位置
+uint8_t noteNum = 0;    // 楽譜の現在位置
+uint8_t lyricIndex = 0; // LEDマトリクス歌詞の現在位置（実音符のみカウント）
+
+// ============================================================
+//  LEDマトリクス表示の非ブロッキング管理
+//  sendNote() 直後に loadFrame() し、note.duration 経過で clear()
+// ============================================================
+bool     lyricShowing = false;
+uint32_t lyricClearAt = 0;
 
 // ============================================================
 //  色検出 (元のロジック)
@@ -124,11 +135,25 @@ void sendNote() {
 void setup() {
   Serial.begin(921600);
 
+#if DEBUG_MODE
+  // デバッグ時は USB シリアル接続が確立するまで待つ（最大3秒）
+  uint32_t waitStart = millis();
+  while (!Serial && (millis() - waitStart) < 3000) { delay(10); }
+  Serial.println("\n[BOOT] player.ino start");
+#endif
+
+  // LEDマトリクス初期化
+  matrix.begin();
+  matrix.clear();
+
   if (!tcs.begin()) {
 #if DEBUG_MODE
     Serial.println("[ERR] TCS34725 が見つかりません！配線を確認してください。");
+    Serial.flush();
 #endif
-    while (1);
+    // エラー表示中も LEDマトリクスで分かるよう × 表示
+    matrix.loadFrame((const uint32_t[]){0x80402010, 0x08040201, 0x00000000});
+    while (1) { delay(1000); }
   }
 
 #if DEBUG_MODE
@@ -144,6 +169,12 @@ void setup() {
 // ============================================================
 void loop() {
   uint32_t now = millis();
+
+  // 表示中の歌詞を音長経過後に消す（非ブロッキング）
+  if (lyricShowing && (int32_t)(now - lyricClearAt) >= 0) {
+    matrix.clear();
+    lyricShowing = false;
+  }
 
   // 楽譜を全て演奏し終えたか
   if (noteNum >= MELODY_LENGTH) {
@@ -250,6 +281,16 @@ void loop() {
         // デバッグモードではない時だけ実際にシリアル送信する
         sendNote();
 #endif
+
+        // lyricTiming[] が非ゼロのスロットで次の文字を表示する
+        // （melody の休符スロットも歌詞表示に使えるので「1音=2文字」が表現可能）
+        if (lyricTiming[noteNum] > 0.0f && lyricIndex < LYRICS_LENGTH && blinkInterval > 0) {
+          uint32_t lyricMs = (uint32_t)(blinkInterval * lyricTiming[noteNum]);
+          matrix.loadFrame(kaeruNoUta[lyricIndex]);
+          lyricShowing = true;
+          lyricClearAt = now + lyricMs;
+          lyricIndex++;
+        }
 
         noteNum++;
       }
