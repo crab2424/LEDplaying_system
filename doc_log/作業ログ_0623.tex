@@ -41,14 +41,12 @@
 
 \section{進捗サマリー（概要）}
 \begin{itemize}
- \item 全体進捗率: 80\%
+ \item 全体進捗率: 95\%
  \item マイルストーン達成状況: 達成
  \item 主要成果:
  \begin{itemize}
-    \item ヴァイオリン音のスペクトラム分析・波形合成（完了・進捗100\%）
-    \item 演奏開始・停止スイッチの実装（完了・進捗100\%）
-    \item ヴァイオリン音・開始停止スイッチの単体動作テスト（完了）
-    \item 40倍音までのスペクトル分析に基づく倍音調整により，実楽器に近いヴァイオリン音を再現できた．
+    \item 指揮者及び演奏者Arduino間の光無線通信による同期演奏
+    \item 複数のArduinoを用いた輪唱演奏の実現
  \end{itemize}
  \item 重大課題（影響度）: なし
 \end{itemize}
@@ -66,6 +64,7 @@
       楽譜配列 & 05/26 & 05/28 & 完了 & 100\% & 楽器音 & - \\
       ヴァイオリン音 & 05/28 & 06/12 & 完了 & 100\% & 楽器音 & 今週完了 \\
       演奏開始・停止ボタン（実装） & 05/28 & 06/09 & 完了 & 100\% & 設計 & - \\
+      結合 & 06/17 & 07/07 & 完了 & 80\% & 進行中 & 複数台のArduinoを用いた輪唱演奏も実現 \\
       開始停止スイッチテスト & 06/13 & 06/19 & 進行中 & 50\% & 実装の完了 & 単体は確認済，結合は他担当待ち \\
       楽器音テスト & 06/13 & 06/19 & 進行中 & 50\% & 実装の完了 & 単体は確認済，結合は他担当待ち \\
       \hline
@@ -177,8 +176,8 @@
   \scalebox{0.88}{
     \begin{tabular}{ccp{7.5cm}} \hline
       日付 & 作業時間 & 作業内容・備考 \\ \hline
-      2026/06/10 & 4h & ヴァイオリン音・開始停止スイッチの単体動作テスト \\[4pt]
-      2026/06/16 & 4h & ヴァイオリン音の倍音調整（40倍音まで）・音色再現性テスト \\[4pt]
+      2026/06/17 & 4h & 同期演奏システムの結合 \\[4pt]
+      2026/06/20 & 6h & Arudinoを複数用いた楽器演奏，歌詞表示と楽器演奏の同期 \\[4pt]
         % ※必要に応じて行を追加
       \hline
     \end{tabular}
@@ -189,19 +188,21 @@
 % ===== 今週追加：ログの詳細（TPM・TRL） =====
 \section{ログの詳細}
 
-\subsection{ヴァイオリン音再現の詳細}
-目標とする実ヴァイオリン音と，本システムの生成波形のそれぞれにスペクトル分析を行い，
-各倍音の大きさを読み取った．再現性を高めるため40倍音までの振幅を計測し，
-それに合わせて倍音を調整することで，実楽器に近いヴァイオリン音を近似できた．
-なお，比較にあたっては各音を基準音と音量正規化・音程確認した上で行っており，
-音程のずれは知覚上許容される範囲に収まることを確認した\cite{Vurma}．
-評価結果を図\ref{fig:violin_result}に示す．
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.95\linewidth]{violin_result.png}
-  \caption{ヴァイオリン音の音色評価結果（音色特徴量比較）}
-  \label{fig:violin_result}
-\end{figure}
+\subsection{指揮者及び演奏者Arduino間の光無線通信による同期演奏}
+各担当の機能の単体実装が完了したため，実機およびソースコードの結合を行った．
+結合対象は指揮者Arduino（\texttt{conductor.ino}），演奏者Arduino（\texttt{player.ino} + \texttt{lyrics.h/cpp} + \texttt{katakana.h}），およびProcessing側音源（\texttt{soundPlayer.pde}）の3層であり，
+指揮者LEDの色・点滅で音高・テンポ・音量を伝送し，演奏者がカラーセンサで受光してシリアル経由でProcessingに4Byteパケット（pitch 6bit／volume 7bit／duration 12bit／instID 2bit）を送信する構成である．
+結合過程で，演奏者側の色判定が「毎拍判定」となっていた点を共同開発者と認識合わせし，
+「一度自色を検出した以降は点滅追従のみで進行する」ラッチ動作に修正した（\texttt{armed}フラグ導入）．
+これにより，色を切り替えながら点滅させるだけで複数楽器の同時演奏が成立する状態となった．
+
+\subsection{複数のArduinoを用いた輪唱演奏}
+同期演奏システムを拡張し，複数台の演奏者Arduinoによる輪唱（カノン）演奏を実装した．
+共通の \texttt{melody[]} を全演奏者で共有したまま，指揮者側の順次点火シーケンスのみで各パートの入りをずらす方式である．
+指揮者は OFF→ON 立ち上がりごとに \texttt{pulseIdx} を進め，\texttt{OFFSET\_PULSES\_PER\_PART = 16}（8拍）ごとに点灯色を \texttt{PART\_COLORS[] = \{紫, 赤, 青, 緑\}} の次の色へ切り替える．
+全パート点火後は末尾色（緑）で点滅を継続し，最後に入ったパートの色で全演奏者を引き続き同期させる．
+これにより，最大4声の輪唱を楽譜・シリアルプロトコルを変更することなく実現した．
+
 
 \subsection{技術性能指標（TPM）}
 TPMはシステムの最終的な性能に関わる技術を管理するための指標である．
@@ -259,9 +260,8 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
   }
 \end{table}
 
-自分の担当機能の現状を表\ref{tab:trl_status}に示す．ヴァイオリン音生成・開始停止スイッチは
-いずれも単体での動作確認が完了しているためTRL2に到達している．
-機能を結合した結合テストは他担当の実装待ちであり，TRL3には未到達である．
+自分の担当機能の現状を表\ref{tab:trl_status}に示す．同期演奏システムの結合は実機での結合及びテストを進めている段階であるため，TRL3と判定した．
+輪唱演奏についても，複数台の演奏者Arduinoと指揮者Arduinoを用いた実機結合での動作確認まで到達しているため，TRL3と判定した．
 
 \begin{table}[H]
   \centering
@@ -270,8 +270,8 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
   \scalebox{0.9}{
     \begin{tabular}{lcp{6cm}} \hline
       担当機能 & 現在のTRL & 根拠 \\ \hline
-      ヴァイオリン音生成 & TRL2 & 単体で目標音色を再現・計測済み．結合は他担当待ち \\
-      開始停止スイッチ & TRL2 & 単体で開始・停止動作を確認済み．結合は他担当待ち \\
+      同期演奏システムの結合 & TRL3 & 実機での結合及びテストを進めている \\
+      輪唱演奏 & TRL3 & 複数台Arduinoでの実機結合動作を確認済 \\
       \hline
     \end{tabular}
   }
@@ -294,22 +294,51 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 % ※優先度＝対応の緊急性
 
 \section{AI利用状況と検証}
-\subsection{利用内容：合成波形の自動録音プログラム}
+\subsection{利用内容}
+\subsubsection*{A. 演奏者Arduinoの色判定ラッチ化（\texttt{player.ino}）}
 \begin{itemize}
-    \item 利用目的：楽器音単体テストに使用する音源の実装
+    \item 利用目的：合奏成立のため，「一度自色を検出した後は色不問で点滅追従のみ行う」ラッチ動作への修正
     \item 入力（プロンプト要旨）：
     \begin{itemize}
-        \item Processingで合成した波形音を一音ずつ自動で録音するプログラムの作成を依頼した．
-        \item 既存の波形生成pdeとは別ファイルとし，波形の内容（合成方法・倍音構成）は同一とする旨を指定した．
-        \item 立ち上がり（noteOn）から1秒間鳴らし，C5〜B5の白鍵7音（\texttt{C5 D5 E5 F5 G5 A5 B5}）を1音ずつ録音すること，および録音時間をコード内の定数で変更できる構造にすることを指定した．
-        \item 録音時に必ずしも音をスピーカから出力する必要はない旨を指定した．
+        \item 現状の \texttt{player.ino} は毎拍で \texttt{detectColorID()} を呼ぶため，指揮者LEDの色を切り替えると自パート以外の色で演奏が停止する旨を説明した．
+        \item 設計書3.3.5.3および図3.12では「初回自色検出以降は点滅検出のみ」と読み取れる旨を共有し，最小差分でラッチ化する実装を依頼した．
+        \item 既存のシリアル送信タイミング・楽譜進行ロジックは変更しないことを条件として指定した．
     \end{itemize}
     \item 出力概要：
     \begin{itemize}
-        \item 録音仕様：C5〜B5の白鍵7音を1音ずつ自動で \texttt{recordings/C5.wav} 〜 \texttt{recordings/B5.wav} に保存する実装が得られた．
-        \item 録音タイミング：noteOnから \texttt{RECORD\_SECONDS} 秒間を録音し，1音終わると即 \texttt{doUnpatch()}（\texttt{violin.pde} 内で定義した自作ヘルパー関数．内部で各倍音 \texttt{UGen} に対して Minim の \texttt{unpatch()}\cite{minim_unpatch} を呼び出し，出力との接続を解除するラッパー）で停止．\texttt{GAP\_SECONDS} の無音区間を挟んで次の音へ遷移する制御が得られた．
-        \item 録音時間の変更：コード冒頭の定数 \texttt{final float RECORD\_SECONDS = 1.0;} を書き換えることで，任意の録音長に変更可能である．
-        \item 音出力について：Minimの \texttt{AudioRecorder} はラインアウトを録音する仕組みのため，実行中はスピーカからも音が鳴る（録音自体に再生は必須ではないという条件は満たす．気になる場合はシステム音量を下げてもファイルには影響しない）旨の補足が得られた．
+        \item グローバルに \texttt{bool armed = false} を追加し，\texttt{if (!armed)} 内でのみ \texttt{detectColorID()} を呼び，自色一致時に \texttt{armed = true} とする実装が得られた．
+        \item 案A（\texttt{noteNum >= MELODY\_LENGTH} で自動停止）のみ採用し，案B（一定時間消灯による再武装）は未実装で保留する判断が得られた．
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{B. 指揮者Arduinoの輪唱用順次点火シーケンス（\texttt{conductor.ino}）}
+\begin{itemize}
+    \item 利用目的：複数演奏者で共通の \texttt{melody[]} を共有したまま，輪唱（カノン）を成立させる点火制御の実装
+    \item 入力（プロンプト要旨）：
+    \begin{itemize}
+        \item 楽譜やシリアルプロトコルは変えず，指揮者LEDの点灯色を一定パルスごとに切り替えるだけで輪唱を成立させたい旨を指定した．
+        \item オフセットは8拍，最大4声，末尾に入ったパートの色で点滅継続，という条件を与えた．
+        \item \texttt{SYSTEM\_SWITCH} OFF→ON の立ち上がり検出時に \texttt{pulseIdx} をリセットして先頭から再演奏する仕様も指定した．
+    \end{itemize}
+    \item 出力概要：
+    \begin{itemize}
+        \item \texttt{NUM\_PARTS = 4}，\texttt{OFFSET\_PULSES\_PER\_PART = 16}（8分音符単位で16パルス），\texttt{PART\_COLORS[] = \{紫, 赤, 青, 緑\}} を定数定義した実装が得られた．
+        \item OFF→ON 立ち上がりごとに \texttt{pulseIdx} を進め，\texttt{OFFSET\_PULSES\_PER\_PART} ごとに点灯色を次の色へ切り替え，全パート点火後は末尾色で点滅継続する制御が得られた．
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{C. UNO R4 WiFi の \texttt{WiFi.begin()} ブロッキング対策（\texttt{conductor.ino}）}
+\begin{itemize}
+    \item 利用目的：WiFi接続失敗時の起動待機時間が想定の倍になる事象の解消
+    \item 入力（プロンプト要旨）：
+    \begin{itemize}
+        \item 起動時に「無反応約10秒 → ドット出力約10秒 → スタンドアロン開始」と二段待機する症状を説明した．
+        \item 接続失敗時に \texttt{WiFi.begin()} 自体が内部で数秒〜10秒ブロックしてから戻っているのではないかという仮説を提示し，検証と修正案の作成を依頼した．
+    \end{itemize}
+    \item 出力概要：
+    \begin{itemize}
+        \item タイマー開始（\texttt{millis()}）を \texttt{WiFi.begin()} の \textbf{前} に置き，\texttt{WiFi.begin()} 自体のブロック時間もタイムアウトに含める修正パターンが得られた．
+        \item スタンドアロン起動フォールバック時に \texttt{SYSTEM\_SWITCH = false} を明示セットし，単体モードでは停止状態起動を保証する合わせ技も提案された．
     \end{itemize}
 \end{itemize}
 
@@ -318,17 +347,18 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 \begin{itemize}
   \item 検証方法:
   \begin{itemize}
-      \item 実機での実行による動作確認，および生成されたwavファイルの再生確認．
+      \item いずれも実機（指揮者Arduino・演奏者Arduino複数台・Processing PC）での結合動作確認による．
   \end{itemize}
   \item 参照資料:
   \begin{itemize}
-      \item Processing公式リファレンス\cite{processing}．
+      \item 本プロジェクト設計書 3.3.5.3 / 図3.12（色判定挙動），同 2.4（状態遷移）．
+      \item Arduino UNO R4 WiFi 公式リファレンス（\texttt{WiFiS3} ライブラリ）．
   \end{itemize}
   \item 検証手順：
   \begin{enumerate}
-      \item 録音プログラム（pde）を実行し，実行時にエラーが発生しないことを確認する．
-      \item \texttt{recordings/} ディレクトリ配下にC5〜B5の白鍵7音分のwavファイルが生成されていることを確認する．
-      \item 生成されたwavファイルを再生し，意図した波形音が正しく録音されていることを確認する．
+      \item A：指揮者LEDの色を自パート色→他パート色の順に点滅させ，初回自色検出以降は他色でも演奏が継続することを確認する．
+      \item B：演奏者Arduinoを複数台接続し，指揮者起動後8拍ごとに新しいパートが入り，全パート点火後は末尾色（緑）で同期して輪唱が継続することを確認する．
+      \item C：存在しないSSIDを指定して指揮者Arduinoを起動し，全体待機時間が想定タイムアウト値の範囲内（二段待機にならない）で収まることを確認する．
   \end{enumerate}
 \end{itemize}
 
@@ -336,13 +366,17 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 \begin{itemize}
   \item 一致点：
   \begin{itemize}
-    \item AIが提示した実装方法（Minimの\texttt{AudioRecorder}による録音，および自作ヘルパー \texttt{doUnpatch()} を介した Minim \texttt{UGen.unpatch()}\cite{minim_unpatch} による発音停止）は，Processing公式リファレンス\cite{processing}およびMinim公式ドキュメントの記載と一致する．
+    \item A：ラッチ動作仕様は，共同開発者（24G1125 三芝）との認識合わせおよび設計書3.3.5.3／図3.12の記述と一致する．
+    \item B：順次点火シーケンスは，楽譜・シリアルプロトコル無変更で輪唱を成立させるという当初要件と整合する．
+    \item C：\texttt{WiFi.begin()} がリンクアップ失敗時に内部ブロックする挙動は，他のArduino WiFiライブラリでも同様の流派が一般的であり妥当である．
   \end{itemize}
   \item 不一致・疑義：なし
-  \item 最終判断：採用
+  \item 最終判断：いずれも採用
   \item 根拠：
   \begin{itemize}
-    \item 生成されたwavファイルと，元の波形生成pdeから出力される音源とを聴感上で比較し，差異がないことを確認した．
+    \item A：修正後の \texttt{player.ino} を実機投入し，紫→赤→青→緑と色を切り替えても自パート以外の色で停止しないことを確認した．
+    \item B：演奏者Arduinoを複数台接続し，8拍オフセットで順次入る輪唱演奏が成立することを確認した．
+    \item C：存在しないSSID指定で起動した際の待機時間が単一タイムアウト分に収まり，二段待機が解消したことを確認した．
   \end{itemize}
 \end{itemize}
 
