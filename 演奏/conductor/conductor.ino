@@ -14,14 +14,18 @@
 #include <ArduinoHttpClient.h>
 
 // ============================================================
-//  ★ 点灯色の設定
-//    光らせたい色の行だけコメントアウトを外してください
-//    (複数同時に有効にすると紫など混色になります)
+//  ★ 輪唱設定
+//    PART_COLORS の順番で 1パートずつ点火していく
+//    - 先頭のパートが一番早く入る
+//    - 末尾のパートが一番最後に入る = 以降の継続点滅もこの色に固定
+//    NUM_PARTS = 1 にすれば単独演奏（従来動作）
 // ============================================================
-//#define COLOR_RED     // 赤を点灯する
-//#define COLOR_GREEN   // 緑を点灯する
-//#define COLOR_BLUE    // 青を点灯する
-#define COLOR_PURPLE  // 紫を点灯する (赤+青 同時点灯)
+enum LightColor : uint8_t { LC_PURPLE = 0, LC_RED = 1, LC_BLUE = 2, LC_GREEN = 3 };
+
+const uint8_t     NUM_PARTS              = 4;   // 1〜4
+const LightColor  PART_COLORS[4]         = { LC_PURPLE, LC_RED, LC_BLUE, LC_GREEN };
+// オフセット = 8拍 = 16パルス (pulseBeat は 8分音符単位)
+const uint16_t    OFFSET_PULSES_PER_PART = 16;
 
 // ============================================================
 //  ★ ピン設定
@@ -82,6 +86,12 @@ bool BlinkManage   = false;
 bool lastSWITCH    = false;
 bool nowSWITCH     = false;
 bool SYSTEM_SWITCH = false;
+bool lastSystemSwitch = false;
+
+// 演奏開始からのパルス番号 (OFF→ON 立ち上がりごとに+1)
+// 輪唱のパートごとの点火タイミングを決める
+uint32_t   pulseIdx     = 0;
+LightColor currentColor = PART_COLORS[0];
 
 WiFiServer webServer(80);
 WiFiClient wifiClient;
@@ -97,28 +107,38 @@ const unsigned long WIFI_CONNECT_TIMEOUT = 10000; // [ms] これを超えたらW
 // ============================================================
 //  点灯色を決定してピンに出力する関数
 // ============================================================
-void applyLED(int level) {
-#if defined(COLOR_PURPLE)
-  analogWrite(PIN_RED,   level);
-  analogWrite(PIN_GREEN, 0);
-  analogWrite(PIN_BLUE,  level);
-#elif defined(COLOR_RED)
-  analogWrite(PIN_RED,   level);
-  analogWrite(PIN_GREEN, 0);
-  analogWrite(PIN_BLUE,  0);
-#elif defined(COLOR_GREEN)
-  analogWrite(PIN_RED,   0);
-  analogWrite(PIN_GREEN, level);
-  analogWrite(PIN_BLUE,  0);
-#elif defined(COLOR_BLUE)
-  analogWrite(PIN_RED,   0);
-  analogWrite(PIN_GREEN, 0);
-  analogWrite(PIN_BLUE,  level);
-#else
-  analogWrite(PIN_RED,   0);
-  analogWrite(PIN_GREEN, 0);
-  analogWrite(PIN_BLUE,  0);
-#endif
+void applyLED(LightColor c, int level) {
+  switch (c) {
+    case LC_PURPLE:
+      analogWrite(PIN_RED,   level);
+      analogWrite(PIN_GREEN, 0);
+      analogWrite(PIN_BLUE,  level);
+      break;
+    case LC_RED:
+      analogWrite(PIN_RED,   level);
+      analogWrite(PIN_GREEN, 0);
+      analogWrite(PIN_BLUE,  0);
+      break;
+    case LC_BLUE:
+      analogWrite(PIN_RED,   0);
+      analogWrite(PIN_GREEN, 0);
+      analogWrite(PIN_BLUE,  level);
+      break;
+    case LC_GREEN:
+      analogWrite(PIN_RED,   0);
+      analogWrite(PIN_GREEN, level);
+      analogWrite(PIN_BLUE,  0);
+      break;
+  }
+}
+
+// 現在のパルス番号 → そのパルスで出すべき色
+//   pulseIdx = k * OFFSET_PULSES_PER_PART (k < NUM_PARTS) の瞬間に PART_COLORS[k] を出す
+//   それ以外は「直近で点火済みのパート」のうち末尾の色を出す = 全パート点火後は固定色
+LightColor colorForPulse(uint32_t pulseIdx) {
+  uint32_t k = pulseIdx / OFFSET_PULSES_PER_PART;
+  if (k >= NUM_PARTS) k = NUM_PARTS - 1;  // 全パート点火後は最後の色固定
+  return PART_COLORS[k];
 }
 
 // ============================================================
@@ -154,8 +174,11 @@ void sendHeartbeat() {
 void handleWebRequest() {
   if (!wifiReady) return;  // WiFi未接続時は何もしない（単体動作モード）
 
+  // heartbeat の HTTP リクエストは数百ms ブロックするため、演奏中は送らない。
+  // 演奏中に送ると点滅パルスを取りこぼし、点滅回数が減って聞こえる原因になる。
+  // (演奏停止中の方が時間に余裕があるので、その時にまとめて登録更新する)
   unsigned long now = millis();
-  if (now - lastHeartbeat >= HEARTBEAT_INTERVAL) {
+  if (!SYSTEM_SWITCH && now - lastHeartbeat >= HEARTBEAT_INTERVAL) {
     sendHeartbeat();
     lastHeartbeat = now;
   }
@@ -214,12 +237,15 @@ void setup() {
   pinMode(ANALOG_INPUT, INPUT);
   Serial.begin(9600);
 
-  applyLED(0);
+  applyLED(currentColor, 0);
 
   // WiFi 接続 (タイムアウト付き。接続できなくても単体モードで起動する)
+  // タイマーは WiFi.begin() の前に起動する。WiFi.begin() 自体が数秒〜10秒程度
+  // ブロックすることがあり、その分も WIFI_CONNECT_TIMEOUT に含めないと
+  // 合計待ち時間が想定の倍になる。
   Serial.print("Connecting to WiFi...");
-  WiFi.begin(ssid, pass);
   unsigned long wifiStart = millis();
+  WiFi.begin(ssid, pass);
   while (WiFi.status() != WL_CONNECTED &&
          millis() - wifiStart < WIFI_CONNECT_TIMEOUT) {
     delay(500);
@@ -253,6 +279,9 @@ void setup() {
   } else {
     Serial.println("\nWiFi connect failed. Standalone mode.");
     Serial.println("Ready (standalone). Use switch & knob.\n");
+    // WiFi 未接続時は確実に停止状態で起動する
+    SYSTEM_SWITCH    = false;
+    lastSystemSwitch = false;
   }
 }
 
@@ -293,20 +322,32 @@ void loop() {
     lastToggle = millis();
   }
 
+  // 演奏停止→開始の立ち上がりで輪唱シーケンスを先頭にリセット
+  if (SYSTEM_SWITCH && !lastSystemSwitch) {
+    pulseIdx     = 0;
+    currentColor = PART_COLORS[0];
+    BlinkManage  = false;
+    lastBlink    = millis();
+  }
+  lastSystemSwitch = SYSTEM_SWITCH;
+
   if (SYSTEM_SWITCH) {
     interval = BlinkManage ? BLINK_TIME : (pulseBeat - BLINK_TIME);
 
     if (millis() - lastBlink >= interval) {
       BlinkManage = !BlinkManage;
       lastBlink   = millis();
-      // OFF→ON に切り替わる瞬間だけ保留中の明るさを反映する（点灯中の変化を防ぐ）
+      // OFF→ON に切り替わる瞬間だけ保留中の明るさと点灯色を更新する
+      // (点灯中に色や輝度が変わると受光側のピーク検出・周期測定が乱れる)
       if (BlinkManage) {
         ledBrightness = pendingBrightness;
+        currentColor  = colorForPulse(pulseIdx);
+        pulseIdx++;
       }
     }
-    applyLED(BlinkManage ? ledBrightness : 0);
+    applyLED(currentColor, BlinkManage ? ledBrightness : 0);
   } else {
-    applyLED(0);
+    applyLED(currentColor, 0);
     BlinkManage = false;
   }
 
