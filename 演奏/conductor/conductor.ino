@@ -235,7 +235,7 @@ void setup() {
   pinMode(PIN_BLUE,     OUTPUT);
   pinMode(SWITCH_PIN,   INPUT_PULLUP);
   pinMode(ANALOG_INPUT, INPUT);
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   applyLED(currentColor, 0);
 
