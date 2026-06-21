@@ -24,7 +24,7 @@ ArduinoLEDMatrix matrix;
 // ============================================================
 // 担当する楽器ID (指揮者側と同じマッピング)
 //   0 = ピアノ(紫), 1 = バイオリン(赤), 2 = フルート(青), 3 = ドラム(緑)
-const uint8_t MY_INSTRUMENT_ID = 0;  // ← フルート担当の場合
+const uint8_t MY_INSTRUMENT_ID = 1;  
 
 // 担当色 (MY_INSTRUMENT_IDに対応する色)
 const uint8_t MY_COLOR_ID = MY_INSTRUMENT_ID;
@@ -91,6 +91,10 @@ uint8_t  peakDownCount = 0;
 
 uint8_t noteNum = 0;    // 楽譜の現在位置
 uint8_t lyricIndex = 0; // LEDマトリクス歌詞の現在位置（実音符のみカウント）
+
+// ラッチ: 一度自色を検出したら以降は色判定をスキップし、点滅検出のみで進行
+// (輪唱用: 演奏者ごとに自色の初回点火タイミングがズレ → そのまま輪唱のズレになる)
+bool armed = false;
 
 // ============================================================
 //  LEDマトリクス表示の非ブロッキング管理
@@ -245,19 +249,27 @@ void loop() {
         Serial.println(clearMax);
 #endif
 
-        int colorID = detectColorID(r, g, b);
-        
+        // ラッチ仕様: armed まで色判定 / armed 後は点滅のみで進行
+        if (!armed) {
+          int colorID = detectColorID(r, g, b);
+
 #if DEBUG_MODE
-        Serial.print("[COLOR] 色判定結果 ID: "); 
-        Serial.println(colorID);
-        if (colorID == -1) {
-          Serial.println("  -> 失敗: 色の条件を満たしていません。(R=" + String(r) + " G=" + String(g) + " B=" + String(b) + ")");
-        } else if (colorID != MY_COLOR_ID) {
-          Serial.println("  -> 無視: 自分の色(" + String(MY_COLOR_ID) + ")ではありませんでした。");
-        }
+          Serial.print("[COLOR] 色判定結果 ID: ");
+          Serial.println(colorID);
+          if (colorID == -1) {
+            Serial.println("  -> 失敗: 色の条件を満たしていません。(R=" + String(r) + " G=" + String(g) + " B=" + String(b) + ")");
+          } else if (colorID != MY_COLOR_ID) {
+            Serial.println("  -> 無視: 自分の色(" + String(MY_COLOR_ID) + ")ではありませんでした。点火待機継続。");
+          }
 #endif
 
-        if (colorID != MY_COLOR_ID) return;
+          if (colorID != MY_COLOR_ID) return;
+
+          armed = true;
+#if DEBUG_MODE
+          Serial.println("[ARM] 自色を検出。以降は色判定をスキップして点滅追従します。");
+#endif
+        }
 
         // 音データ生成
         note.instrumentID = MY_INSTRUMENT_ID;
