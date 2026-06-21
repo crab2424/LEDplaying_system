@@ -38,10 +38,7 @@ void setup() {
       // 適切なポートを指定してください (ここでは最後のポートを選択しています)
       String portName = portNames[portNames.length - 1]; 
       println("\n接続するポート: " + portName);
-      // 115200 推奨 (player.ino 側と揃えること)
-      // 921600 では UNO R4 WiFi で取りこぼしが発生し、4Byte パケットが
-      // ズレて vol=0 等の異常値になる → 音が鳴らない原因になる
-      port = new Serial(this, portName, 115200);
+      port = new Serial(this, portName, 921600);
       port.clear();               
       println("接続成功！");
     } catch (Exception e) {
