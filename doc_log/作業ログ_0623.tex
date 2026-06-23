@@ -192,7 +192,7 @@
 
 \subsection{指揮者及び演奏者Arduino間の光無線通信による同期演奏}
 各担当の機能の単体実装が完了したため，実機およびソースコードの結合を行った．
-結合対象は指揮者Arduino（conductor.ino），演奏者Arduino（player.ino + lyrics.h/cpp + katakana.h/cpp），およびProcessing側音源（soundPlayer.pde）の3項目である．指揮者LEDの色・点滅で音高・テンポ・音量を伝送し，演奏者がカラーセンサで受光してシリアル経由でProcessingに送信する構成である．\\
+結合対象は指揮者Arduino（conductor.ino），演奏者Arduino（player.ino + lyrics.h/cpp + katakana.h/cpp），およびProcessing\cite{processing}側音源（soundPlayer.pde，Minimライブラリ使用\cite{minim_unpatch}）の3項目である．指揮者LEDの色・点滅で音高・テンポ・音量を伝送し，演奏者がカラーセンサで受光してシリアル経由でProcessingに送信する構成である．\\
 結合過程で，演奏者側の色判定が「毎拍判定」となっていた点を共同開発者と認識合わせし，
 「一度自色を検出した以降は点滅追従のみで進行する」ラッチ動作に修正した．これにより，色を切り替えながら点滅させるだけで複数楽器の同時演奏が成立する状態となった．
 
@@ -316,8 +316,8 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
   \end{itemize}
   \item 参照資料:
   \begin{itemize}
-      \item 本プロジェクト設計書．
-      \item Arduino UNO R4 WiFi 公式リファレンス（WiFiS3 ライブラリ）．
+      \item 本プロジェクト設計書\footnote{チーム内部資料．}．
+      \item Arduino UNO R4 WiFi 公式リファレンス（WiFiS3 ライブラリ）\cite{wifis3}．
   \end{itemize}
   \item 検証手順：
   \begin{enumerate}
@@ -372,8 +372,9 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 
 
 \begin{thebibliography}{9}
-\bibitem{processing} Processing Foundation (2026), "Processing Reference". \url{https://processing.org/reference/}. (2026年6月16日 参照)
-\bibitem{minim_unpatch} D. Di Fede (2026), "Minim : UGen.unpatch()". \url{http://code.compartmental.net/minim/ugen_method_unpatch.html}. (2026年6月16日 参照)
+\bibitem{processing} Processing Foundation (2026), "Processing Reference". \url{https://processing.org/reference/}. (2026年6月23日 参照)
+\bibitem{minim_unpatch} D. Di Fede (2026), "Minim : UGen.unpatch()". \url{http://code.compartmental.net/minim/ugen_method_unpatch.html}. (2026年6月23日 参照)
+\bibitem{wifis3} Arduino (2026), "WiFiS3 Library". \url{https://docs.arduino.cc/libraries/wifi/}. (2026年6月23日 参照)
 \end{thebibliography}
 
 \end{document}
