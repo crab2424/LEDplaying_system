@@ -29,7 +29,6 @@
 % 色・ガントチャート
 \usepackage{xcolor}
 \usepackage{pgfgantt}
-\usepackage{caption}
 
 \begin{document}
 \section*{作業ログ}
@@ -82,7 +81,7 @@
 \resizebox{0.92\linewidth}{!}{%
 \begin{ganttchart}[
   hgrid,
-  vgrid={*6{draw=none,line width=0pt}, dotted},
+  vgrid=dotted,
   time slot format=isodate,
   time slot unit=day,
   x unit=0.52cm,
@@ -95,7 +94,8 @@
   bar top shift=0.23,
   bar/.append style={fill=violet!45, draw=violet!75},
 ]{2026-05-20}{2026-06-16}
-  \gantttitlecalendar{month=shortname, day} \\
+  \gantttitlecalendar{month=shortname} \\
+  \gantttitlecalendar{day} \\
   \ganttbar{楽器演奏}{2026-05-20}{2026-05-23} \\
   \ganttbar{演奏開始・停止ボタン}{2026-05-23}{2026-05-27} \\
   \ganttbar{楽器音}{2026-05-23}{2026-05-27} \\
@@ -121,7 +121,7 @@
 \resizebox{0.92\linewidth}{!}{%
 \begin{ganttchart}[
   hgrid,
-  vgrid={*6{draw=none,line width=0pt}, dotted},
+  vgrid=dotted,
   time slot format=isodate,
   time slot unit=day,
   x unit=0.52cm,
@@ -133,7 +133,8 @@
   bar height=0.55,
   bar top shift=0.23,
 ]{2026-05-20}{2026-06-25}
-  \gantttitlecalendar{month=shortname, day} \\
+  \gantttitlecalendar{month=shortname} \\
+  \gantttitlecalendar{day} \\
   % ---- 完了タスク (gray!60) ----
   \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
     {楽器演奏}{2026-05-20}{2026-05-23} \\
@@ -154,7 +155,7 @@
   \ganttbar[bar/.append style={fill=gray!60, draw=gray!80},
     bar label node/.append style={opacity=0}]
     {}{2026-06-04}{2026-06-09} \\
-  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80},]
+  \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
     {開始停止スイッチテスト}{2026-06-13}{2026-06-19} \\
   \ganttbar[bar/.append style={fill=gray!60, draw=gray!80}]
     {楽器音テスト}{2026-06-13}{2026-06-19} \\
@@ -177,7 +178,7 @@
     \begin{tabular}{ccp{7.5cm}} \hline
       日付 & 作業時間 & 作業内容・備考 \\ \hline
       2026/06/17 & 4h & 同期演奏システムの結合 \\[4pt]
-      2026/06/20 & 6h & Arudinoを複数用いた楽器演奏，歌詞表示と楽器演奏の同期 \\[4pt]
+      2026/06/20 & 6h & Arduinoを複数用いた楽器演奏，歌詞表示と楽器演奏の同期 \\[4pt]
       2026/06/21 & 7h & 複数楽器の同時演奏，輪唱演奏の実装，\newline チームとの仕様確認\\[4pt]
         % ※必要に応じて行を追加
       \hline
@@ -270,8 +271,8 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
     \end{itemize}
     \item 出力概要：
     \begin{itemize}
-        \item グローバルに bool armed = false を追加し，if (!armed) 内でのみ detectColorID() を呼び，自色一致時に armed = true とする実装が得られた．
-        \item 案A（noteNum >= MELODY\_LENGTH で自動停止）のみ採用し，案B（一定時間消灯による再武装）は未実装で保留する判断が得られた．
+        \item 起動時は未武装状態とし，色判定で自パート色を検出した時点で武装状態に遷移するフラグ制御の実装が得られた．武装後は色判定を行わず点滅追従のみとなる．
+        \item 楽譜末尾到達による自動停止のみ採用し，一定時間消灯による再武装は保留とする判断が得られた．
     \end{itemize}
 \end{itemize}
 
@@ -281,17 +282,17 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
     \item 入力（プロンプト要旨）：
     \begin{itemize}
         \item 楽譜やシリアルプロトコルは変えず，指揮者LEDの点灯色を一定パルスごとに切り替えるだけで輪唱を成立させたい旨を指定した．
-        \item オフセットは8拍，最大4声，末尾に入ったパートの色で点滅継続，という条件を与えた．
+        \item 輪唱間隔は8拍，最大4楽器，末尾に入ったパートの色で点滅継続，という条件を与えた．
         \item SYSTEM\_SWITCH OFF→ON の立ち上がり検出時に pulseIdx をリセットして先頭から再演奏する仕様も指定した．
     \end{itemize}
     \item 出力概要：
     \begin{itemize}
-        \item NUM\_PARTS = 4，OFFSET\_PULSES\_PER\_PART = 16（8分音符単位で16パルス），PART\_COLORS[] = \{紫, 赤, 青, 緑\} を定数定義した実装が得られた．
-        \item OFF→ON 立ち上がりごとに pulseIdx を進め，OFFSET\_PULSES\_PER\_PART ごとに点灯色を次の色へ切り替え，全パート点滅後は末尾色で点滅継続する制御が得られた．
+        \item 最大4楽器・8拍の輪唱間隔・パート色（紫→赤→青→緑）を定数で定義した順次点火制御の実装が得られた．
+        \item OFF→ON 立ち上がりごとに拍カウントを進め，所定の拍数ごとに点灯色を次の色へ切り替え，全パート点火後は末尾色で点滅継続する制御が得られた．
     \end{itemize}
 \end{itemize}
 
-\subsubsection{UNO R4 WiFi の WiFi.begin()} ブロッキング対策（conductor.ino）
+\subsubsection{UNO R4 WiFi の WiFi.begin() ブロッキング対策（conductor.ino）}
 \begin{itemize}
     \item 利用目的：WiFi接続失敗時の起動待機時間が想定の倍になる事象の解消
     \item 入力（プロンプト要旨）：
@@ -339,7 +340,7 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
   \item 根拠：
   \begin{itemize}
     \item 修正後の player.ino を実機投入し，紫→赤→青→緑と色を切り替えても自パート以外の色で停止しないことを確認した．
-    \item 演奏者Arduinoを複数台接続し，8拍オフセットで順次入る輪唱演奏が成立することを確認した．
+    \item 演奏者Arduinoを複数台接続し，8拍の輪唱間隔で順次入る輪唱演奏が成立することを確認した．
     \item 存在しないSSID指定で起動した際の待機時間が単一タイムアウト分に収まり，二段待機が解消したことを確認した．
   \end{itemize}
 \end{itemize}
