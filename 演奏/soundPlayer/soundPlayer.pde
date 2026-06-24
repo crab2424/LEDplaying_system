@@ -92,11 +92,13 @@ void draw() {
   fill(255);
 
   // ヴァイオリンのupdate処理 (ADSRのフェーズ遷移やビブラート更新用)
-  for (int i = activeViolins.size() - 1; i >= 0; i--) {
-    ViolinInstrument inst = activeViolins.get(i);
-    inst.update();
-    if (inst.isDone()) {
-      activeViolins.remove(i);
+  synchronized(activeViolins) {
+    for (int i = activeViolins.size() - 1; i >= 0; i--) {
+      ViolinInstrument inst = activeViolins.get(i);
+      inst.update();
+      if (inst.isDone()) {
+        activeViolins.remove(i);
+      }
     }
   }
   
@@ -201,7 +203,7 @@ void playNoteFromData(int pi, int vol, int dur, int inst) {
     case 1: // Violin (赤)
       ViolinInstrument v = new ViolinInstrument(freq, amp);
       out.playNote(0.0, durSec, v);
-      activeViolins.add(v);
+      synchronized(activeViolins) { activeViolins.add(v); }
       break;
     case 2: // Flute (青)
       out.playNote(0.0, durSec, new FluteInst(freq, amp));
@@ -212,7 +214,9 @@ void playNoteFromData(int pi, int vol, int dur, int inst) {
   }
 }
 
+// ============================================================
 // シリアルポートのクリーンアップ
+// ============================================================
 void stop() {
   if (port != null) {
     port.clear();
@@ -418,15 +422,15 @@ class SnareInstrument implements Instrument {
 
     noise.patch(lp);
     lp.patch(noiseADSR);
-    noiseADSR.patch(out);
     noise2.patch(lp2);
     lp2.patch(noise2ADSR);
-    noise2ADSR.patch(out);
     body.patch(bodyADSR);
-    bodyADSR.patch(out);
   }
 
   void noteOn(float duration) {
+    noiseADSR.patch(out);
+    noise2ADSR.patch(out);
+    bodyADSR.patch(out);
     noiseADSR.noteOn();
     noise2ADSR.noteOn();
     bodyADSR.noteOn();

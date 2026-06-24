@@ -12,6 +12,7 @@
 
 #include <WiFiS3.h>
 #include <ArduinoHttpClient.h>
+#include "Arduino_LED_Matrix.h"
 
 // ============================================================
 //  ★ 輪唱設定
@@ -20,19 +21,29 @@
 //    - 末尾のパートが一番最後に入る = 以降の継続点滅もこの色に固定
 //    NUM_PARTS = 1 にすれば単独演奏（従来動作）
 // ============================================================
+ArduinoLEDMatrix matrix;
+
 enum LightColor : uint8_t { LC_PURPLE = 0, LC_RED = 1, LC_BLUE = 2, LC_GREEN = 3 };
 
 const uint8_t     NUM_PARTS              = 4;   // 1〜4
 const LightColor  PART_COLORS[4]         = { LC_PURPLE, LC_RED, LC_BLUE, LC_GREEN };
 // オフセット = 8拍 = 16パルス (pulseBeat は 8分音符単位)
 const uint16_t    OFFSET_PULSES_PER_PART = 16;
+// mode確認を行うパルス数 = NUM_PARTS * OFFSET = 4*16 = 64
+const uint32_t    MODE_CHECK_PULSES = (uint32_t)NUM_PARTS * OFFSET_PULSES_PER_PART;
+// 一度演奏モード時に全員が弾き終わるまでの総パルス数 = 3*16+64 = 112
+// MELODY_LENGTH=64 (lyrics.h参照)
+const uint32_t    TOTAL_PULSES = (uint32_t)(NUM_PARTS - 1) * OFFSET_PULSES_PER_PART + 64;
 
 // ============================================================
 //  ★ ピン設定
 // ============================================================
-#define PIN_GREEN    11   // 緑アノード (抵抗 68Ω)
-#define PIN_BLUE     10   // 青アノード (抵抗 68Ω)
-#define PIN_RED       9   // 赤アノード (抵抗 150Ω)
+#define PIN_GREEN    11   // 緑アノード 箱内 (抵抗 68Ω)
+#define PIN_BLUE     10   // 青アノード 箱内 (抵抗 68Ω)
+#define PIN_RED       9   // 赤アノード 箱内 (抵抗 150Ω)
+#define PIN_GREEN2    7   // 緑アノード 外部 (抵抗 68Ω)
+#define PIN_BLUE2     6   // 青アノード 外部 (抵抗 68Ω)
+#define PIN_RED2      5   // 赤アノード 外部 (抵抗 150Ω)
 #define SWITCH_PIN    2   // タクトスイッチ (INPUT_PULLUP)
 #define ANALOG_INPUT A0   // 可変抵抗
 
@@ -78,6 +89,11 @@ const int KNOB_CHANGE_THRESHOLD = 15;
 unsigned long lastSerialPrint = 0;
 const unsigned long SERIAL_INTERVAL = 1000;
 
+// LEDマトリクスBPM表示用
+unsigned long lastMatrixUpdate = 0;
+const unsigned long MATRIX_INTERVAL = 500;  // 0.5秒ごとに更新
+int lastDisplayedBpm = -1;
+
 unsigned long lastBlink  = 0;
 unsigned long lastToggle = 0;
 unsigned long interval   = 0;
@@ -93,6 +109,9 @@ bool lastSystemSwitch = false;
 uint32_t   pulseIdx     = 0;
 LightColor currentColor = PART_COLORS[0];
 
+// ループモード: true=全員終了後に最初から繰り返す / false=全員終了後に停止
+bool loopMode = false;
+
 WiFiServer webServer(80);
 WiFiClient wifiClient;
 HttpClient httpClient = HttpClient(wifiClient, serverAddress, webPort);
@@ -103,6 +122,47 @@ unsigned long lastHeartbeat = 0;
 // WiFiに接続できなかった場合でも単体動作できるようにするためのフラグ
 bool wifiReady = false;
 const unsigned long WIFI_CONNECT_TIMEOUT = 10000; // [ms] これを超えたらWiFi無しで起動
+const unsigned long SERVER_CONNECT_TIMEOUT = 2000; // [ms] サーバ未起動時に長く待たない
+
+// ============================================================
+//  LEDマトリクスに3桁BPMを表示する
+//  数字は 5行 x 3列。3桁 + 桁間1列 x 2 = 11列なので12x8に収まる。
+//  '1' が点灯、'0' が消灯。
+// ============================================================
+const char DIGIT_BITMAPS[10][5][4] = {
+  { "111", "101", "101", "101", "111" }, // 0
+  { "010", "110", "010", "010", "111" }, // 1
+  { "111", "001", "111", "100", "111" }, // 2
+  { "111", "001", "111", "001", "111" }, // 3
+  { "101", "101", "111", "001", "001" }, // 4
+  { "111", "100", "111", "001", "111" }, // 5
+  { "111", "100", "111", "101", "111" }, // 6
+  { "111", "001", "010", "100", "100" }, // 7
+  { "111", "101", "111", "101", "111" }, // 8
+  { "111", "101", "111", "001", "111" }, // 9
+};
+
+void drawDigit(byte bitmap[8][12], int digit, int xOffset) {
+  const int yOffset = 1;
+  for (int y = 0; y < 5; y++) {
+    for (int x = 0; x < 3; x++) {
+      bitmap[y + yOffset][x + xOffset] = (DIGIT_BITMAPS[digit][y][x] == '1') ? 1 : 0;
+    }
+  }
+}
+
+void showBPM(int bpm) {
+  bpm = constrain(bpm, 0, 999);
+  int d100 = bpm / 100;
+  int d10  = (bpm / 10) % 10;
+  int d1   = bpm % 10;
+
+  byte bitmap[8][12] = { 0 };
+  drawDigit(bitmap, d100, 0);
+  drawDigit(bitmap, d10,  4);
+  drawDigit(bitmap, d1,   8);
+  matrix.renderBitmap(bitmap, 8, 12);
+}
 
 // ============================================================
 //  点灯色を決定してピンに出力する関数
@@ -110,24 +170,24 @@ const unsigned long WIFI_CONNECT_TIMEOUT = 10000; // [ms] これを超えたらW
 void applyLED(LightColor c, int level) {
   switch (c) {
     case LC_PURPLE:
-      analogWrite(PIN_RED,   level);
-      analogWrite(PIN_GREEN, 0);
-      analogWrite(PIN_BLUE,  level);
+      analogWrite(PIN_RED,    level); analogWrite(PIN_RED2,    level);
+      analogWrite(PIN_GREEN,  0);     analogWrite(PIN_GREEN2,  0);
+      analogWrite(PIN_BLUE,   level); analogWrite(PIN_BLUE2,   level);
       break;
     case LC_RED:
-      analogWrite(PIN_RED,   level);
-      analogWrite(PIN_GREEN, 0);
-      analogWrite(PIN_BLUE,  0);
+      analogWrite(PIN_RED,    level); analogWrite(PIN_RED2,    level);
+      analogWrite(PIN_GREEN,  0);     analogWrite(PIN_GREEN2,  0);
+      analogWrite(PIN_BLUE,   0);     analogWrite(PIN_BLUE2,   0);
       break;
     case LC_BLUE:
-      analogWrite(PIN_RED,   0);
-      analogWrite(PIN_GREEN, 0);
-      analogWrite(PIN_BLUE,  level);
+      analogWrite(PIN_RED,    0);     analogWrite(PIN_RED2,    0);
+      analogWrite(PIN_GREEN,  0);     analogWrite(PIN_GREEN2,  0);
+      analogWrite(PIN_BLUE,   level); analogWrite(PIN_BLUE2,   level);
       break;
     case LC_GREEN:
-      analogWrite(PIN_RED,   0);
-      analogWrite(PIN_GREEN, level);
-      analogWrite(PIN_BLUE,  0);
+      analogWrite(PIN_RED,    0);     analogWrite(PIN_RED2,    0);
+      analogWrite(PIN_GREEN,  level); analogWrite(PIN_GREEN2,  level);
+      analogWrite(PIN_BLUE,   0);     analogWrite(PIN_BLUE2,   0);
       break;
   }
 }
@@ -159,10 +219,18 @@ int getWebParam(String query, String key) {
 void sendHeartbeat() {
   WiFiClient hbWifi;
   HttpClient hbClient = HttpClient(hbWifi, serverAddress, webPort);
+  hbClient.setTimeout(SERVER_CONNECT_TIMEOUT);
   String path = "/register?id=" + myID + "&type=" + myType;
   hbClient.get(path);
   hbClient.responseStatusCode();
   hbClient.stop();
+}
+
+void enterStandaloneMode() {
+  wifiReady        = false;
+  SYSTEM_SWITCH    = false;
+  lastSystemSwitch = false;
+  Serial.println("Ready (standalone). Use switch & knob.\n");
 }
 
 // ============================================================
@@ -220,6 +288,10 @@ void handleWebRequest() {
     int playVal = getWebParam(queryString, "play");
     if (playVal == 1) SYSTEM_SWITCH = true;
     if (playVal == 0) SYSTEM_SWITCH = false;
+
+    int loopVal = getWebParam(queryString, "loop");
+    if (loopVal == 1) loopMode = true;
+    if (loopVal == 0) loopMode = false;
   }
 
   webClient.println("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nOK");
@@ -233,9 +305,14 @@ void setup() {
   pinMode(PIN_RED,      OUTPUT);
   pinMode(PIN_GREEN,    OUTPUT);
   pinMode(PIN_BLUE,     OUTPUT);
+  pinMode(PIN_RED2,     OUTPUT);
+  pinMode(PIN_GREEN2,   OUTPUT);
+  pinMode(PIN_BLUE2,    OUTPUT);
   pinMode(SWITCH_PIN,   INPUT_PULLUP);
   pinMode(ANALOG_INPUT, INPUT);
   Serial.begin(115200);
+  matrix.begin();
+  matrix.clear();
 
   applyLED(currentColor, 0);
 
@@ -268,20 +345,25 @@ void setup() {
 
     // サーバーへ自己登録
     Serial.println("Registering to server...");
+    httpClient.setTimeout(SERVER_CONNECT_TIMEOUT);
     String regPath = "/register?id=" + myID + "&type=" + myType;
     httpClient.get(regPath);
-    httpClient.responseStatusCode();
+    int statusCode = httpClient.responseStatusCode();
     httpClient.stop();
 
-    webServer.begin();
-    wifiReady = true;
-    Serial.println("Ready. Waiting for data...\n");
+    if (statusCode >= 200 && statusCode < 300) {
+      webServer.begin();
+      wifiReady = true;
+      Serial.println("Ready. Waiting for data...\n");
+    } else {
+      Serial.print("Server unavailable. HTTP status: ");
+      Serial.println(statusCode);
+      WiFi.disconnect();
+      enterStandaloneMode();
+    }
   } else {
     Serial.println("\nWiFi connect failed. Standalone mode.");
-    Serial.println("Ready (standalone). Use switch & knob.\n");
-    // WiFi 未接続時は確実に停止状態で起動する
-    SYSTEM_SWITCH    = false;
-    lastSystemSwitch = false;
+    enterStandaloneMode();
   }
 }
 
@@ -316,6 +398,13 @@ void loop() {
 
   pulseBeat = 60000 / bpm / 2;  // 8分音符間隔 [ms]
 
+  // BPMが変わったか0.5秒経過したら表示更新
+  if (bpm != lastDisplayedBpm || now - lastMatrixUpdate >= MATRIX_INTERVAL) {
+    showBPM(bpm);
+    lastDisplayedBpm = bpm;
+    lastMatrixUpdate = now;
+  }
+
   // タクトスイッチ: 押した瞬間を検出 (チャタリング防止付き)
   if (!lastSWITCH && nowSWITCH && (millis() - lastToggle > CHATTARING_TIME)) {
     SYSTEM_SWITCH = !SYSTEM_SWITCH;
@@ -343,6 +432,17 @@ void loop() {
         ledBrightness = pendingBrightness;
         currentColor  = colorForPulse(pulseIdx);
         pulseIdx++;
+
+        // 全演奏者が弾き終わるパルス数に達したら
+        // 64パルス（全パート点火完了）でmode確認
+        if (pulseIdx >= MODE_CHECK_PULSES && loopMode) {
+          pulseIdx     = 0;            // 紫から再スタート
+          currentColor = PART_COLORS[0];
+        }
+        // 112パルス（全員演奏終了）で停止（mode=0のみ）
+        if (pulseIdx >= TOTAL_PULSES && !loopMode) {
+          SYSTEM_SWITCH = false;
+        }
       }
     }
     applyLED(currentColor, BlinkManage ? ledBrightness : 0);

@@ -1,6 +1,6 @@
 #ifndef LYRICS_H
 #define LYRICS_H
-#define MELODY_LENGTH 62
+#define MELODY_LENGTH 64
 
 #include <stdint.h>
 #include "katakana.h"
@@ -19,56 +19,109 @@ extern const uint32_t *kaeruNoUta[LYRICS_LENGTH];
 //   例) G3=7, Ab3=8, A3=9, Bb3=10, D4=14, E4=16, F4=17, G4=19, A4=21
 // → 低音域（伴奏）や半音（♭/♯）も表現できるよう拡張した．
 
-
-
+// ============================================================
+// メロディー楽譜（カエルの歌）
+// ============================================================
 // 各音の高さ（音名 → ピッチインデックス: C3 からの半音数）
-static const uint8_t melody[MELODY_LENGTH] = {
-  24, 0, 26, 2, 28, 2, 29, 0, 28, 0, 26, 0, 24, 0, 0, 0,// C5 D5 E5 F5 E5 D5 C5
+static const uint8_t melodyScore_pitch[MELODY_LENGTH] = {
+  24, 0, 26, 2, 28, 2, 29, 0, 28, 0, 26, 0, 24, 0, 0, 0, // C5 D5 E5 F5 E5 D5 C5
   28, 0, 29, 0, 31, 0, 33, 0, 31, 0, 29, 0, 28, 0, 0, 0, // E5 F5 G5 A5 G5 F5 E5
-  24, 0,  0, 0, 24, 0, 0, 0, 24, 0, 0, 0, 24,0, 0,  0,             // C5 C5 C5 C5
-  24, 24, 26, 26, 28, 28, 29, 29, // C5 C5 D5 D5 E5 E5 F5 F5
-  28, 0,  26,  0, 24,  0                  // E5 D5 C5
+  24, 0,  0, 0, 24, 0,  0, 0, 24, 0,  0, 0, 24, 0,  0, 0, // C5 C5 C5 C5
+  24, 24, 26, 26, 28, 28, 29, 29, 28, 0, 26,  0, 24,  0,  0,  0, // C5 C5 D5 D5 E5 E5 F5 F5 E5 D5 C5
 };
 
 // 各音の長さ（拍）
-static const float duration[MELODY_LENGTH] = {
+static const float melodyScore_duration[MELODY_LENGTH] = {
   2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f,
   2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f,
-  2.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-  1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f
+  2.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 };
 
-
 // 各音の強弱（音量倍率: 0.0〜1.0）
-static const float noteAmplitude[MELODY_LENGTH] = {
+static const float melodyScore_amplitude[MELODY_LENGTH] = {
   1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
   1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
   1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 
-  1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 };
 
-// ============================================================
-// 歌詞表示タイミング（melody/duration と同じ MELODY_LENGTH 長）
-//   0.0f : このスロットでは歌詞を進めない／表示しない
-//   >0   : kaeruNoUta の次の文字を表示し、その拍数分だけ表示
-//
-//   実時間ms = blinkInterval(ms/拍) * lyricTiming[i]
-//
-//   melody スロット (休符含む) と独立に進むので、
-//   「1音=2文字」の箇所は休符スロットを使って2文字目を流せる。
-// ============================================================
-static const float lyricTiming[MELODY_LENGTH] = {
+// メロディー楽譜の歌詞表示タイミング
+static const float melodyScore_lyricTiming[MELODY_LENGTH] = {
   2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f,
   2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f,
   1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
 };
 
-// ピッチインデックス → 周波数(Hz) 変換テーブル（C3〜C5・半音単位）
-// インデックス = C3 からの半音数
+// ============================================================
+// リズム楽譜（一定間隔で同じ音が鳴る楽譜）
+//   8分音符間隔で「1回鳴る → 7回休み」を繰り返す
+//   音高は固定で C5（ピッチインデックス24）を使用
+// ============================================================
+static const uint8_t rhythmScore_pitch[MELODY_LENGTH] = {
+  24, 0, 0, 0, 0, 0, 0, 0,
+  24, 0, 0, 0, 0, 0, 0, 0,
+  24, 0, 0, 0, 0, 0, 0, 0,
+  24, 0, 0, 0, 0, 0, 0, 0,
+  24, 0, 0, 0, 0, 0, 0, 0,
+  24, 0, 0, 0, 0, 0, 0, 0,
+  24, 0, 0, 0, 0, 0, 0, 0,
+  24, 0, 0, 0, 0, 0, 0, 0,
+};
+
+static const float rhythmScore_duration[MELODY_LENGTH] = {
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+};
+
+static const float rhythmScore_amplitude[MELODY_LENGTH] = {
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+};
+
+static const float rhythmScore_lyricTiming[MELODY_LENGTH] = {
+  2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f,
+  2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f,
+  1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+};
+
+// ============================================================
+// 楽譜選択用 構造体・テーブル
+//   0 = リズム楽譜
+//   1 = メロディー楽譜
+//   ※ server.js の score パラメータと対応
+// ============================================================
+typedef struct {
+  const uint8_t *pitch;
+  const float   *duration;
+  const float   *amplitude;
+  const float   *lyricTiming;
+} ScoreData;
+
+#define SCORE_ID_RHYTHM 0
+#define SCORE_ID_MELODY 1
+#define SCORE_COUNT     2
+
+static const ScoreData scoreTable[SCORE_COUNT] = {
+  { rhythmScore_pitch, rhythmScore_duration, rhythmScore_amplitude, rhythmScore_lyricTiming }, // 0: リズム
+  { melodyScore_pitch, melodyScore_duration, melodyScore_amplitude, melodyScore_lyricTiming }, // 1: メロディー
+};
+
+// ピッチインデックス → 周波数(Hz) 変換テーブル（C3〜C6・半音単位）
 #define PITCH_TABLE_LEN 37
 static const float pitchFreqHz[PITCH_TABLE_LEN] = {
   130.81f, // 0  C3
@@ -108,72 +161,6 @@ static const float pitchFreqHz[PITCH_TABLE_LEN] = {
   932.33f, // 34 A#5
   987.77f, // 35 B5 (シ)
   1046.50f // 36 C6
-};
-
-// ============================================================
-// 伴奏（和音）配列（melody.pde の chord 系より移植）
-// ============================================================
-// 1 和音あたり最大 CHORD_MAX_NOTES 音。実際の音数は chordNoteCount で指定。
-// 音高は melody と同じ「C3 からの半音数」インデックス。
-#define CHORD_COUNT 23
-#define CHORD_MAX_NOTES 3
-
-// 各和音を構成する音の数
-static const uint8_t chordNoteCount[CHORD_COUNT] = {
-  2, 2, 2, 2, 2, 2, 3, 2, 2,
-  1, 2, 1, 2, 1, 2, 1, 2,
-  1, 1, 1, 1, 1, 2
-};
-
-// 各和音の音の高さ（未使用の要素は 0 埋め）
-static const uint8_t chord[CHORD_COUNT][CHORD_MAX_NOTES] = {
-  {12, 19, 0}, // C4 G4
-  {12, 19, 0}, // C4 G4
-  {12, 19, 0}, // C4 G4
-  {12, 19, 0}, // C4 G4
-  {12, 19, 0}, // C4 G4
-  {12, 19, 0}, // C4 G4
-  { 7, 14, 17}, // G3 D4 F4
-  {12, 19, 0}, // C4 G4
-  {12, 19, 0}, // C4 G4
-  { 7,  0, 0}, // G3
-  {12, 19, 0}, // C4 G4
-  { 7,  0, 0}, // G3
-  {12, 19, 0}, // C4 G4
-  { 7,  0, 0}, // G3
-  {12, 19, 0}, // C4 G4
-  { 7,  0, 0}, // G3
-  {12, 19, 0}, // C4 G4
-  {10,  0, 0}, // Bb3
-  { 9,  0, 0}, // A3
-  { 8,  0, 0}, // Ab3
-  { 7,  0, 0}, // G3
-  { 7,  0, 0}, // G3
-  {12, 19, 0}  // C4 G4
-};
-
-// 各和音の長さ（拍）
-static const float chordDuration[CHORD_COUNT] = {
-  4.0f, 4.0f, 4.0f, 4.0f,
-  4.0f, 4.0f, 4.0f, 4.0f,
-  2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f,
-  2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 4.0f
-};
-
-// 各和音の開始位置（拍）
-static const float chordStartTime[CHORD_COUNT] = {
-  0.0f,  4.0f,  8.0f, 12.0f,
-  16.0f, 20.0f, 24.0f, 28.0f,
-  32.0f, 34.0f, 36.0f, 38.0f, 40.0f, 42.0f, 44.0f, 46.0f,
-  48.0f, 50.0f, 52.0f, 54.0f, 56.0f, 58.0f, 60.0f
-};
-
-// 各和音の強弱（音量倍率: 0.0〜1.0）
-static const float chordAmplitude[CHORD_COUNT] = {
-  1.0f, 1.0f, 1.0f, 1.0f,
-  1.0f, 1.0f, 1.0f, 1.0f,
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
 };
 
 #endif
