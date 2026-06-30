@@ -75,7 +75,6 @@
       楽器音テスト & 06/13 & 06/19 & 完了 & 100\% & 実装の完了 & - \\
       輪唱演奏テスト & 06/17 & 06/25 & 進行中 & 60\% & 結合の完了 & - \\
       演奏停止プログラム & 06/29 & 06/29 & 完了 & 100\% & 結合 & \makecell[l]{点滅未検知タイムアウトによる\\演奏状態リセット機能を実装} \\
-      遅延テスト & 06/30 & 07/07 & 未着手 & 0\% & 結合の完了 & 新規追加 \\
       4台同時演奏テスト & 06/30 & 07/07 & 進行中 & 30\% & 結合の完了 & \makecell[l]{動作確認は実施．\\安定動作の検証はこれから} \\
       プレゼン準備 & 06/30 & 07/07 & 未着手 & 0\% & テストの完了 & 新規追加 \\
       \hline
@@ -203,8 +202,8 @@
       日付 & 作業時間 & 作業内容・備考 \\ \hline
       2026/06/24 & 4h & 演奏者Arduino4台＋指揮者Arduino1台による実機演奏動作確認．LED閾値が一定に定まらない問題および演奏停止プログラム未実装の課題を発見したため，詳細テストには未到達 \\[4pt]
       2026/06/27 & 1h & アンケート用ヴァイオリン音源の録音 \\[4pt]
-      2026/06/29 & 2h & チーム内アンケート内容すり合わせ・演奏停止プログラム（点滅未検知タイムアウト機能）の作成 \\
-
+      2026/06/29 & 2h & チーム内アンケート内容すり合わせ・演奏停止プログラム（点滅未検知タイムアウト機能）の作成 \\[4pt]
+      2026/06/30 & 2h & 作業ログの作成 \\
         % ※必要に応じて行を追加
       \hline
     \end{tabular}
@@ -226,7 +225,7 @@
 
 \subsection{演奏停止プログラム（点滅未検知タイムアウト機能）}
 上記2点目の課題に対応するため，演奏者Arduinoに「点滅未検知タイムアウト」機能を追加実装した．
-指揮者LEDの立ち上がりエッジが一定時間検出されない場合，演奏進行状態（楽譜進行カウンタ noteNum，歌詞インデックス lyricIndex，色判定ラッチ armed）を自動的に待機状態へリセットする．
+指揮者LEDの立ち上がりエッジが一定時間検出されない場合，\texttt{millis()}\cite{arduino_millis} による経過時間判定に基づき，演奏進行状態（楽譜進行カウンタ noteNum，歌詞インデックス lyricIndex，色判定ラッチ armed）を自動的に待機状態へリセットする．
 タイムアウト値は3000\,msとし，BPM30（最遅想定）における半拍周期1000\,msの3倍を確保した．
 検出系状態（inBlink・clearMax・blinkTime1・blinkInterval）は次の立ち上がりエッジで自然に再初期化されるためリセット対象から除外し，副作用を最小化している．
 また，起動直後の誤発火を避けるため，発火条件には「ラッチ済み（armed=true）または1音以上演奏済み（noteNum$>$0）」のガードを設けている．
@@ -352,7 +351,7 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
   \item 一致点：
   \begin{itemize}
     \item 本プロジェクトのBPM想定範囲（30〜240）における半拍周期に対し，3秒のタイムアウト値は十分な余裕を持つ．
-    \item リセット対象を楽譜進行状態（noteNum，lyricIndex，armed）に限定する方針は，既存の色判定ラッチ仕様（[[project-color-latch-spec]]）と整合する．
+    \item リセット対象を楽譜進行状態（noteNum，lyricIndex，armed）に限定する方針は，既存の色判定ラッチ仕様（前回作業ログ報告済み）と整合する．
     \item Web経由の設定値（楽器・音量・楽譜ID）をリセット対象から除外する判断は，ユーザ選択保持の観点から妥当である．
   \end{itemize}
   \item 不一致・疑義：なし
@@ -391,9 +390,8 @@ TRLは機能ごとの進捗を確認する指標である．定義を表\ref{tab
 
 
 \begin{thebibliography}{9}
-\bibitem{processing} Processing Foundation (2026), "Processing Reference". \url{https://processing.org/reference/}. (2026年6月30日 参照)
-\bibitem{minim_unpatch} D. Di Fede (2026), "Minim : UGen.unpatch()". \url{http://code.compartmental.net/minim/ugen_method_unpatch.html}. (2026年6月30日 参照)
 \bibitem{wifis3} Arduino (2026), "WiFiS3 Library". \url{https://docs.arduino.cc/libraries/wifi/}. (2026年6月30日 参照)
+\bibitem{arduino_millis} Arduino (2026), "millis() - Arduino Reference". \url{https://docs.arduino.cc/language-reference/en/functions/time/millis/}. (2026年6月30日 参照)
 \end{thebibliography}
 
 \end{document}
