@@ -1,0 +1,60 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="911" dy="567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-1" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ledController" vertex="1">
+          <mxGeometry height="130" width="140" x="280" y="130" as="geometry">
+            <mxRectangle height="30" width="60" x="40" y="110" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-5" parent="P_U3HZw5Bt9LrPyXdfzg-1" style="line;strokeWidth=2;html=1;" value="" vertex="1">
+          <mxGeometry height="10" width="140" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-14" parent="P_U3HZw5Bt9LrPyXdfzg-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ begin(): LED Matrixを開始" vertex="1">
+          <mxGeometry height="30" width="140" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-15" parent="P_U3HZw5Bt9LrPyXdfzg-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ view( matrix ): matrixをLED Matrixに表示する&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="140" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-17" parent="P_U3HZw5Bt9LrPyXdfzg-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1">
+          <mxGeometry height="30" width="140" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-18" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="data" vertex="1">
+          <mxGeometry height="150" width="140" x="50" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-19" parent="P_U3HZw5Bt9LrPyXdfzg-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ ptch[] : 音の高さ" vertex="1">
+          <mxGeometry height="30" width="140" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-20" parent="P_U3HZw5Bt9LrPyXdfzg-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ volume[] : 音の大きさ" vertex="1">
+          <mxGeometry height="30" width="140" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-21" parent="P_U3HZw5Bt9LrPyXdfzg-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ lengh[] : 音の長さ" vertex="1">
+          <mxGeometry height="30" width="140" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-32" parent="P_U3HZw5Bt9LrPyXdfzg-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ matrix[] : 歌詞または，音程" vertex="1">
+          <mxGeometry height="30" width="140" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-27" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="sendContoroller" vertex="1">
+          <mxGeometry height="120" width="140" x="510" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-28" parent="P_U3HZw5Bt9LrPyXdfzg-27" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- sendTo : 送信先" vertex="1">
+          <mxGeometry height="30" width="140" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-30" parent="P_U3HZw5Bt9LrPyXdfzg-27" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ count : 送信に合わせて進める" vertex="1">
+          <mxGeometry height="30" width="140" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-31" parent="P_U3HZw5Bt9LrPyXdfzg-27" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="+ counter : 音の送信回数を記録する" vertex="1">
+          <mxGeometry height="30" width="140" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-33" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="P_U3HZw5Bt9LrPyXdfzg-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="P_U3HZw5Bt9LrPyXdfzg-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="P_U3HZw5Bt9LrPyXdfzg-35" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="P_U3HZw5Bt9LrPyXdfzg-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="P_U3HZw5Bt9LrPyXdfzg-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,119 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="ページ-1" id="-lo7besCcv0Xl3nryzJO">
+    <mxGraphModel dx="2607" dy="1205" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-4" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-3" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="407" y="160" />
+              <mxPoint x="177" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-6" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-5" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="407" y="160" />
+              <mxPoint x="767" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="LED同期演奏システム" vertex="1">
+          <mxGeometry height="60" width="134" x="340" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-11" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="mfc9vY_i_KZuAxO23IYP-9" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="177" y="330" />
+              <mxPoint x="540" y="330" />
+              <mxPoint x="540" y="385" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-13" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="mfc9vY_i_KZuAxO23IYP-12" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="177" y="330" />
+              <mxPoint x="-53" y="330" />
+            </Array>
+            <mxPoint x="-60" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-16" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-15" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="演奏" vertex="1">
+          <mxGeometry height="60" width="134" x="110" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-8" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="視覚情報" vertex="1">
+          <mxGeometry height="60" width="134" x="700" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="LEDマトリクスでの歌詞表示" vertex="1">
+          <mxGeometry height="60" width="134" x="700" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-18" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-17" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-20" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="547" y="465" />
+              <mxPoint x="690" y="465" />
+            </Array>
+            <mxPoint x="670" y="505" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-22" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="547" y="465" />
+              <mxPoint x="390" y="465" />
+            </Array>
+            <mxPoint x="390" y="545" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="webサイト" vertex="1">
+          <mxGeometry height="60" width="134" x="480" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-30" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-29" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="演奏前制御" vertex="1">
+          <mxGeometry height="60" width="134" x="-120" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-25" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-24" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-27" edge="1" parent="1" source="mfc9vY_i_KZuAxO23IYP-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="mfc9vY_i_KZuAxO23IYP-26" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="演奏" vertex="1">
+          <mxGeometry height="60" width="134" x="110" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="楽器変更" vertex="1">
+          <mxGeometry height="60" width="134" x="480" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="テンポ変更" vertex="1">
+          <mxGeometry height="60" width="120" x="640" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-23" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="音量変更" vertex="1">
+          <mxGeometry height="60" width="120" x="330" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-24" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="テンポ変更" vertex="1">
+          <mxGeometry height="60" width="134" x="30" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-26" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="音量変更" vertex="1">
+          <mxGeometry height="60" width="134" x="180" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="mfc9vY_i_KZuAxO23IYP-29" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="楽器変更" vertex="1">
+          <mxGeometry height="60" width="134" x="-120" y="530" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

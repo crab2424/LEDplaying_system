@@ -1,0 +1,58 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hack-fonts}[2026/03/23 Custom title page]
+
+% フォント関係
+\RequirePackage{luatexja-fontspec}
+
+% For Mac:
+% 和文
+% \setmainjfont{Hiragino Sans W3}[BoldFont=Hiragino Sans W6]
+% \setsansjfont{Hiragino Sans W6}
+
+% % 欧文
+% \setmainfont{Hiragino Sans W3}[BoldFont=Hiragino Sans W6]
+% \setsansfont{Hiragino Sans W6}
+
+% set main j(apanese) font[]
+
+% 和文
+\setmainjfont[
+  UprightFont = * W3,
+  BoldFont    = * W6
+]{Hiragino Sans}
+\setsansjfont[
+  UprightFont = * W3,
+  BoldFont    = * W6
+]{Hiragino Sans}
+
+% 欧文
+\setmainjfont[
+  UprightFont = * W3,
+  BoldFont    = * W6
+]{Hiragino Sans}
+\setsansjfont[
+  UprightFont = * W3,
+  BoldFont    = * W6
+]{Hiragino Sans}
+
+% % For Old Mac:
+% % 和文
+% \setmainjfont{Hiragino Kaku Gothic ProN W3}[BoldFont=Hiragino Kaku Gothic ProN W6]
+% \setsansjfont{Hiragino Kaku Gothic ProN W6}
+% % 欧文
+% \setmainfont{Hiragino Kaku Gothic ProN W3}[BoldFont=Hiragino Kaku Gothic ProN W6]
+% \setsansfont{Hiragino Kaku Gothic ProN W6}
+
+% For Mac Alphabet:
+% 欧文
+%\setmainfont{SF NS Rounded}[BoldFont=SF NS Rounded]
+%\setsansfont{SF NS Rounded}
+
+% For Windows:
+% 和文
+%\setmainjfont{UD Digi Kyokasho NK}[BoldFont=UD Digi Kyokasho NK Bold]
+%\setsansjfont{UD Digi Kyokasho NK Bold}
+
+% 欧文
+%\setmainfont{UD Digi Kyokasho NK}[BoldFont=UD Digi Kyokasho NK Bold]
+%\setsansfont{UD Digi Kyokasho NK Bold}

@@ -1,0 +1,200 @@
+<mxfile host="app.diagrams.net" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36">
+  <diagram name="Page-1" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">
+    <mxGraphModel dx="575" dy="1220" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-120" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-122" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RQyN1yvGbK-cyrbiFkcH-125" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2162.5694444444443" y="896.625" />
+              <mxPoint x="1932.5694444444443" y="896.625" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-121" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-122" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RQyN1yvGbK-cyrbiFkcH-129" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2163" y="897" />
+              <mxPoint x="2427" y="897" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-122" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="LED同期演奏システム" vertex="1">
+          <mxGeometry height="60" width="134" x="2095.5694444444443" y="806.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-123" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-125" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-134" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1933" y="1067" />
+              <mxPoint x="1747" y="1067" />
+            </Array>
+            <mxPoint x="1695.5694444444443" y="1116.625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-124" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-125" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RQyN1yvGbK-cyrbiFkcH-137" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1932.5694444444443" y="1066.625" />
+              <mxPoint x="2092.5694444444443" y="1066.625" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-125" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="ハードウェア" vertex="1">
+          <mxGeometry height="60" width="134" x="1865.5694444444443" y="966.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-126" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-129" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RQyN1yvGbK-cyrbiFkcH-131" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-127" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-129" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-146">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2426.999444444444" y="1066.625" />
+              <mxPoint x="2616.999444444444" y="1066.625" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-128" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-129" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-152">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2427.43" y="1067" />
+              <mxPoint x="2931.43" y="1067" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-129" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="ソフトウェア" vertex="1">
+          <mxGeometry height="60" width="134" x="2359.999444444444" y="966.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-130" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-131" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RQyN1yvGbK-cyrbiFkcH-142" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-131" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="楽器再生" vertex="1">
+          <mxGeometry height="60" width="134" x="2269.999444444444" y="1106.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-132" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-134" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RQyN1yvGbK-cyrbiFkcH-140" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-133" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-134" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-141">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-134" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="演奏同期機能" vertex="1">
+          <mxGeometry height="60" width="134" x="1679.9994444444444" y="1106.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-135" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-137" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-138" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2092.4444444444443" y="1216" />
+              <mxPoint x="2015.4444444444443" y="1216" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-136" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-137" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-139" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2092.4444444444443" y="1216" />
+              <mxPoint x="2169.4444444444443" y="1216" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-137" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="演奏制御機能" vertex="1">
+          <mxGeometry height="60" width="134" x="2025.5694444444443" y="1106.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-138" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="演奏開始/終了ボタン" vertex="1">
+          <mxGeometry height="60" width="134" x="1948.4444444444443" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-139" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="テンポ変更つまみ" vertex="1">
+          <mxGeometry height="60" width="134" x="2102.4444444444443" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-140" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="受光機能" vertex="1">
+          <mxGeometry height="60" width="134" x="1769.9994444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-141" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="LED点滅機能" vertex="1">
+          <mxGeometry height="60" width="134" x="1569.9994444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-142" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="ArbuinoとProcessingのI2C通信" vertex="1">
+          <mxGeometry height="60" width="134" x="2269.999444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-143" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-146" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RQyN1yvGbK-cyrbiFkcH-147" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-144" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-146" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RQyN1yvGbK-cyrbiFkcH-148">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2616.999444444444" y="1226.625" />
+              <mxPoint x="2759.999444444444" y="1226.625" />
+            </Array>
+            <mxPoint x="2739.999444444444" y="1241.625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-145" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-146" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-149">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2616.999444444444" y="1226.625" />
+              <mxPoint x="2479.999444444444" y="1226.625" />
+            </Array>
+            <mxPoint x="2459.999444444444" y="1281.625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-146" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="データベース" vertex="1">
+          <mxGeometry height="60" width="134" x="2549.999444444444" y="1121.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-147" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="楽譜配列" vertex="1">
+          <mxGeometry height="60" width="134" x="2549.999444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-148" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="LWDマトリクス表示文字" vertex="1">
+          <mxGeometry height="60" width="120" x="2699.999444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-149" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="楽器音" vertex="1">
+          <mxGeometry height="60" width="120" x="2419.999444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-150" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-152" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RQyN1yvGbK-cyrbiFkcH-153" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-151" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-152" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-154">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2931.429444444444" y="1226.625" />
+              <mxPoint x="3064.429444444444" y="1226.625" />
+            </Array>
+            <mxPoint x="3054.429444444444" y="1241.625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-152" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="webページ" vertex="1">
+          <mxGeometry height="60" width="134" x="2864.429444444444" y="1121.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-153" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="音量変更通信プログラム" vertex="1">
+          <mxGeometry height="60" width="134" x="2864.429444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-154" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="テンポ変更通信プログラム" vertex="1">
+          <mxGeometry height="60" width="120" x="3004.429444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-155" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-152" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-156">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2931.429444444444" y="1226.625" />
+              <mxPoint x="3194.429444444444" y="1226.625" />
+            </Array>
+            <mxPoint x="3074.429444444444" y="1226.625" as="sourcePoint" />
+            <mxPoint x="3204.429444444444" y="1256.625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-156" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="楽譜選択通信プログラム" vertex="1">
+          <mxGeometry height="60" width="120" x="3134.429444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-157" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="演奏ループ選択通信プログラム" vertex="1">
+          <mxGeometry height="60" width="120" x="3264.429444444444" y="1261.625" as="geometry" />
+        </mxCell>
+        <mxCell id="RQyN1yvGbK-cyrbiFkcH-158" edge="1" parent="1" source="RQyN1yvGbK-cyrbiFkcH-152" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RQyN1yvGbK-cyrbiFkcH-157">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2931.429444444444" y="1226.625" />
+              <mxPoint x="3324.429444444444" y="1226.625" />
+            </Array>
+            <mxPoint x="3244.429444444444" y="1186.625" as="sourcePoint" />
+            <mxPoint x="3507.429444444444" y="1266.625" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

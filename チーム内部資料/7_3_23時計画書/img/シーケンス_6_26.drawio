@@ -1,0 +1,145 @@
+<mxfile host="app.diagrams.net" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36">
+  <diagram name="Page-1" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">
+    <mxGraphModel dx="844" dy="615" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7baba1c4bc27f4b0-2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="指揮者Arduino" vertex="1">
+          <mxGeometry height="580" width="100" x="204" y="23" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-10" parent="7baba1c4bc27f4b0-2" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="初&lt;div&gt;期&lt;/div&gt;&lt;div&gt;化&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="10" x="45" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-22" parent="7baba1c4bc27f4b0-2" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="L&lt;div&gt;E&lt;/div&gt;&lt;div&gt;D&lt;/div&gt;&lt;div&gt;点&lt;/div&gt;&lt;div&gt;灯&lt;/div&gt;&lt;div&gt;制&lt;/div&gt;&lt;div&gt;御&lt;/div&gt;&lt;div&gt;ル&lt;/div&gt;&lt;div&gt;ー&lt;/div&gt;&lt;div&gt;プ&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="10" x="45" y="231" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-8" parent="7baba1c4bc27f4b0-2" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p data-pm-slice=&quot;0 0 []&quot; style=&quot;text-align: start;&quot;&gt;テンポ・音量・ループ変更&lt;/p&gt;" vertex="1">
+          <mxGeometry height="30" width="130" x="-85" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-23" parent="7baba1c4bc27f4b0-2" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="L&lt;div&gt;E&lt;/div&gt;&lt;div&gt;D&lt;/div&gt;&lt;div&gt;消&lt;/div&gt;&lt;div&gt;灯&lt;/div&gt;" vertex="1">
+          <mxGeometry height="73" width="10" x="45" y="417" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="演奏者Arduino" vertex="1">
+          <mxGeometry height="580" width="100" x="364" y="23" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-11" parent="7baba1c4bc27f4b0-3" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p data-pm-slice=&quot;0 0 []&quot; style=&quot;text-align: start;&quot;&gt;LED制御・色検出&lt;/p&gt;" vertex="1">
+          <mxGeometry height="30" width="130" x="-92" y="212" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-12" parent="7baba1c4bc27f4b0-3" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="色&lt;div&gt;検&lt;/div&gt;&lt;div&gt;出&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="10" x="45" y="257" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-17" parent="7baba1c4bc27f4b0-3" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p data-pm-slice=&quot;0 0 []&quot; style=&quot;text-align: start;&quot;&gt;次の演奏者色LED発光&lt;/p&gt;" vertex="1">
+          <mxGeometry height="30" width="130" x="-94" y="314" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-18" parent="7baba1c4bc27f4b0-3" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="色&lt;div&gt;検&lt;/div&gt;&lt;div&gt;出&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="10" x="45" y="344" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="Processing" vertex="1">
+          <mxGeometry height="580" width="100" x="504" y="23" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-37" parent="7baba1c4bc27f4b0-4" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="音&lt;div&gt;再&lt;/div&gt;&lt;div&gt;生&lt;/div&gt;&lt;div&gt;ル&lt;/div&gt;&lt;div&gt;ー&lt;/div&gt;&lt;div&gt;プ&lt;/div&gt;" vertex="1">
+          <mxGeometry height="79" width="10" x="46" y="281" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-30" edge="1" parent="7baba1c4bc27f4b0-4" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" value="初期化完了">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="46.5" y="167" as="sourcePoint" />
+            <mxPoint x="-90" y="167" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-8" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="Webサイト&lt;div&gt;/物理ボタン&lt;/div&gt;" vertex="1">
+          <mxGeometry height="580" width="100" x="64" y="23" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-21" edge="1" parent="7baba1c4bc27f4b0-8" style="endArrow=open;endFill=0;endSize=12;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="49.629999999999995" y="407" as="sourcePoint" />
+            <mxPoint x="186" y="407" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-17" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=horizontal;" value="通信初期化">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="412.590909090909" y="158.90909090909088" as="sourcePoint" />
+            <mxPoint x="553.5" y="159.36363636363626" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-11" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;" value="BPM，全体音量，ループ送信">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="114" y="88" as="sourcePoint" />
+            <mxPoint x="253.4999999999999" y="88.2962962962963" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="new-web-to-player" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;" value="楽器，楽譜，個別音量送信">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="114" y="210" as="sourcePoint" />
+            <mxPoint x="413" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-2" edge="1" parent="1" style="endArrow=open;endFill=0;endSize=12;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="113.63043478260875" y="250" as="sourcePoint" />
+            <mxPoint x="250" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="開始信号" vertex="1">
+          <mxGeometry height="30" width="90" x="140" y="228" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-5" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" value="開&lt;div&gt;始&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="10" x="250" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-7" edge="1" parent="1" style="endArrow=open;endFill=0;endSize=12;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="115" y="315" as="sourcePoint" />
+            <mxPoint x="251.36956521739125" y="315" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-9" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;endFill=0;" target="7baba1c4bc27f4b0-3" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="270" as="sourcePoint" />
+            <mxPoint x="399.4999999999999" y="270.2962962962963" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-10" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p data-pm-slice=&quot;0 0 []&quot; style=&quot;text-align: start;&quot;&gt;担当色LED発光&lt;/p&gt;" vertex="1">
+          <mxGeometry height="30" width="100" x="287" y="247" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-13" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;" target="7baba1c4bc27f4b0-4" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="312.67" as="sourcePoint" />
+            <mxPoint x="574" y="312.67" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-14" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p data-pm-slice=&quot;0 0 []&quot; style=&quot;text-align: start;&quot;&gt;演奏開始送信&lt;/p&gt;" vertex="1">
+          <mxGeometry height="30" width="90" x="440" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-15" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=horizontal;endFill=0;" value="&lt;p data-pm-slice=&quot;0 0 []&quot; style=&quot;text-align: start; white-space: normal;&quot;&gt;&lt;br&gt;&lt;/p&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="259" y="360" as="sourcePoint" />
+            <mxPoint x="410" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-19" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=vertical;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="416" y="380" as="sourcePoint" />
+            <mxPoint x="550" y="380.33" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-20" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p data-pm-slice=&quot;0 0 []&quot; style=&quot;text-align: start;&quot;&gt;演奏開始送信&lt;/p&gt;" vertex="1">
+          <mxGeometry height="30" width="90" x="440" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-22" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="停止信号" vertex="1">
+          <mxGeometry height="30" width="90" x="140" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-24" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;edgeStyle=elbowEdgeStyle;elbow=horizontal;endFill=0;" value="&lt;p data-pm-slice=&quot;0 0 []&quot; style=&quot;text-align: start; white-space: normal;&quot;&gt;&lt;br&gt;&lt;/p&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="255" y="530" as="sourcePoint" />
+            <mxPoint x="410" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6vkfk0_HJU4pWRn8nBhN-25" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p data-pm-slice=&quot;0 0 []&quot; style=&quot;text-align: start;&quot;&gt;LED消灯&lt;/p&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="300" y="507" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

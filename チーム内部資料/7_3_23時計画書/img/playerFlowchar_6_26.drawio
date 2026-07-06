@@ -1,0 +1,189 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="playerFlowchar_6_26" name="Page-1">
+    <mxGraphModel dx="1362" dy="1031" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- 開始 -->
+        <mxCell id="n1" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="開始" vertex="1">
+          <mxGeometry x="230" y="30" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Processingとの通信初期化 -->
+        <mxCell id="n2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Processingとの通信初期化" vertex="1">
+          <mxGeometry x="210" y="100" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 担当楽器・担当色確認 -->
+        <mxCell id="n3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="担当楽器・担当色確認" vertex="1">
+          <mxGeometry x="210" y="180" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- WebからHTTP受信 -->
+        <mxCell id="n4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="WebからHTTP受信&#xa;（楽器，楽譜，個別音量）" vertex="1">
+          <mxGeometry x="210" y="260" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- カラーセンサで待機 -->
+        <mxCell id="n5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="カラーセンサで待機" vertex="1">
+          <mxGeometry x="210" y="350" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 停止信号を受信したか -->
+        <mxCell id="n6" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="停止信号を受信したか" vertex="1">
+          <mxGeometry x="190" y="430" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- 自分の担当色を検出したか -->
+        <mxCell id="n7" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="自分の担当色を検出したか" vertex="1">
+          <mxGeometry x="190" y="540" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Processingに音情報を送信 (inner loop start) -->
+        <mxCell id="n8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Processingに音情報を送信&#xa;（pitch，volume，duration，楽器ID）" vertex="1">
+          <mxGeometry x="210" y="650" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 楽譜インデックスを進める・歌詞表示 -->
+        <mxCell id="n9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="楽譜インデックスを進める&#xa;・LEDマトリクスに歌詞表示" vertex="1">
+          <mxGeometry x="210" y="740" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 楽譜を最後まで演奏したか -->
+        <mxCell id="n10" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="楽譜を最後まで演奏したか" vertex="1">
+          <mxGeometry x="190" y="830" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ループモードか -->
+        <mxCell id="n11" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="ループモードか" vertex="1">
+          <mxGeometry x="190" y="940" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Processingとの通信終了 -->
+        <mxCell id="n12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Processingとの通信終了" vertex="1">
+          <mxGeometry x="210" y="1070" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 停止 -->
+        <mxCell id="n13" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="停止" vertex="1">
+          <mxGeometry x="230" y="1150" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- エッジ: 直線部分 -->
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n4" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- n6 No → n7 -->
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="No">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- n6 Yes → n12 (右側バイパス) -->
+        <mxCell id="e7" edge="1" parent="1" source="n6" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="465" />
+              <mxPoint x="550" y="1095" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- n7 Yes → n8 -->
+        <mxCell id="e8" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- n7 No → n5 (右側ループ) -->
+        <mxCell id="e9" edge="1" parent="1" source="n7" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="575" />
+              <mxPoint x="470" y="375" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="e10" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- n10 No → n8 (左側ループ) -->
+        <mxCell id="e12" edge="1" parent="1" source="n10" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="140" y="865" />
+              <mxPoint x="140" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- n10 Yes → n11 -->
+        <mxCell id="e13" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- n11 Yes → n8 (インデックスリセットして再生, 右側ループ) -->
+        <mxCell id="e14" edge="1" parent="1" source="n11" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" value="Yes&#xa;(インデックスリセット)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="975" />
+              <mxPoint x="490" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- n11 No → n5 (左側ループ) -->
+        <mxCell id="e15" edge="1" parent="1" source="n11" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="975" />
+              <mxPoint x="120" y="375" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="e16" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ラベル -->
+        <mxCell id="l1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
+          <mxGeometry x="295" y="505" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
+          <mxGeometry x="295" y="615" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
+          <mxGeometry x="395" y="545" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
+          <mxGeometry x="140" y="840" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
+          <mxGeometry x="295" y="905" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
+          <mxGeometry x="460" y="435" width="40" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

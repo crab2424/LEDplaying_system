@@ -1,0 +1,68 @@
+%グラフは軸にメモリと数値を入れ数値が読み取れるようにすること．
+%また，複数の線が描かれる時は添えrぞれの線が何を示すのか(判例)を忘れずに書くこと．
+%図・表には通し番号をつけて標題をつける．
+%このとき図の番号・表題は図の下に，表の番号・標題は表の上に置く．
+
+%表の書き方
+% \begin{table}[H]
+%   \centering
+%    \caption{フルーツ} \label{tab:}
+%    \scalebox{0.85}{
+%     \begin{tabular}{|l|c|r|} \hline
+%       品名 & 単価(円) & 個数 \\ \hline
+%       りんご & 100 & 5 \\\hline
+%       みかん & 50 & 10 \\ \hline
+%     \end{tabular}
+%   }
+%     
+% \end{table}
+\multicolumn{まとめる列数}{列指定}{中身}
+
+%図の書き方
+% \begin{figure}[位置]
+%   \begin{center}
+%     \includegraphics[width=100mm]{ファイル名}
+%     \caption{キャプション名} \label{fig:}
+%   \end{center}
+% \end{figure}
+
+% \begin{itemize}
+%   \item
+%   \item
+% \end{itemize}
+
+% \begin{enumerate}
+%   \item
+%   \item
+% \end{enumerate}
+
+１. インライン数式：$$で囲む
+$E=mc^2$
+
+２. 別行数式：\ [ \ ]で囲む
+特殊相対性理論では\[E=mc^2\]という式が重要です。
+
+上付き文字と下付き文字は「^」と「_」を用いて表現します。
+\[R_{\mu \nu}-\frac{1}{2}Rg_{\mu \nu}=8\pi GT_{\mu \nu}\]
+
+数式の参照
+\begin{equation}
+ E=mc^{2} \label{Einstein}
+\end{equation}
+
+入れ子
+\begin{itemize}
+ \item 数I
+    \begin{itemize}
+       \item 二次関数
+       \item 三角比
+    \end{itemize}
+ \item 数II  
+    \begin{itemize}
+       \item 三角関数
+       \item 微分
+    \end{itemize}  
+\end{itemize}       
+
+
+Aとは，「分類」＋「特徴」＋「目的（または役割）」である．

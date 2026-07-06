@@ -1,0 +1,119 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1362" dy="1031" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="XkunPl6eLfVgtjmhWikb-19" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="XkunPl6eLfVgtjmhWikb-7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-0" parent="WIyWlLk6GJQsqaUBKTNV-1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;start&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="230" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-21" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="XkunPl6eLfVgtjmhWikb-11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-3" parent="WIyWlLk6GJQsqaUBKTNV-1" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="loop" vertex="1">
+          <mxGeometry height="60" width="120" x="230" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-40" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="XkunPl6eLfVgtjmhWikb-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-6" parent="WIyWlLk6GJQsqaUBKTNV-1" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;direction=west;" value="loop" vertex="1">
+          <mxGeometry height="60" width="120" x="230" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-20" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="XkunPl6eLfVgtjmhWikb-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-7" parent="WIyWlLk6GJQsqaUBKTNV-1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="setupで初期化，通信などの準備" vertex="1">
+          <mxGeometry height="60" width="120" x="230" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-8" parent="WIyWlLk6GJQsqaUBKTNV-1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;end&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="230" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-23" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="XkunPl6eLfVgtjmhWikb-15" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-34" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="XkunPl6eLfVgtjmhWikb-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-10" parent="WIyWlLk6GJQsqaUBKTNV-1" style="rhombus;whiteSpace=wrap;html=1;" value="信号がOFFからONに変わったか" vertex="1">
+          <mxGeometry height="80" width="290" x="145" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-22" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="XkunPl6eLfVgtjmhWikb-10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-11" parent="WIyWlLk6GJQsqaUBKTNV-1" style="rounded=1;whiteSpace=wrap;html=1;" value="analogReadでテンポ用のLEDの照度を受け取る" vertex="1">
+          <mxGeometry height="60" width="160" x="210" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-25" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="XkunPl6eLfVgtjmhWikb-17" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-51" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="XkunPl6eLfVgtjmhWikb-49" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="690" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-15" parent="WIyWlLk6GJQsqaUBKTNV-1" style="rounded=1;whiteSpace=wrap;html=1;" value="LEDの照度(音の大きさ)と楽譜情報を取得" vertex="1">
+          <mxGeometry height="60" width="160" x="210" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-26" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="XkunPl6eLfVgtjmhWikb-18" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-17" parent="WIyWlLk6GJQsqaUBKTNV-1" style="rounded=1;whiteSpace=wrap;html=1;" value="LEDMatrixの表示を切り替える" vertex="1">
+          <mxGeometry height="60" width="160" x="210" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-27" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="XkunPl6eLfVgtjmhWikb-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-18" parent="WIyWlLk6GJQsqaUBKTNV-1" style="rounded=1;whiteSpace=wrap;html=1;" value="演奏状況を更新する" vertex="1">
+          <mxGeometry height="60" width="160" x="210" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-24" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
+          <mxGeometry height="30" width="60" x="290" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-29" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
+          <mxGeometry height="30" width="60" x="435" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-43" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="568" y="890" />
+            </Array>
+            <mxPoint x="290" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-45" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="695" y="660" />
+              <mxPoint x="695" y="1050" />
+            </Array>
+            <mxPoint x="835.1568478260863" y="709.9965217391305" as="sourcePoint" />
+            <mxPoint x="290" y="1050" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-31" parent="WIyWlLk6GJQsqaUBKTNV-1" style="rhombus;whiteSpace=wrap;html=1;" value="指定時間以上OFFのままでないか&lt;div&gt;(終了条件に達していないか)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="215" x="460" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-44" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
+          <mxGeometry height="30" width="60" x="570" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-46" parent="WIyWlLk6GJQsqaUBKTNV-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
+          <mxGeometry height="30" width="60" x="675" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-48" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="XkunPl6eLfVgtjmhWikb-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-47" parent="WIyWlLk6GJQsqaUBKTNV-1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="同期用LEDから&lt;div&gt;照度情報&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="10" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="XkunPl6eLfVgtjmhWikb-49" parent="WIyWlLk6GJQsqaUBKTNV-1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" value="Processingへ&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;音情報(大きさ，&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;長さ,高さ&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;)&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" y="660" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

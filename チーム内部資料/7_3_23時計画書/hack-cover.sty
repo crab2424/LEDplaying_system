@@ -1,0 +1,42 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hack-cover}[2026/03/23 Custom title page]
+
+\makeatletter
+\newcommand{\subtitle}[1]{\gdef\@subtitle{#1}}
+\newcommand{\@subtitle}{}
+\newcommand{\version}[1]{\gdef\@version{#1}}
+\newcommand{\@version}{}
+\newcommand{\team}[1]{\gdef\@team{#1}}
+\newcommand{\@team}{}
+
+\renewcommand{\maketitle}{%
+\begin{titlepage}
+{\large\bfseries \@date ~ Version \@version}
+\vspace*{0.22\textheight}
+
+\hrule height 2.5pt
+
+\vspace{2em}
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\hspace{10mm}{\bfseries\fontsize{30}{34}\selectfont \@title\par}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.55\textwidth}
+{\bfseries\fontsize{23}{30}\selectfont \@subtitle\par}
+\end{minipage}
+
+\vspace{2em}
+
+\hrule height 2.5pt
+
+\vfill
+
+\begin{flushright}
+{\LARGE\bfseries \@team\par}
+{\large\bfseries \noindent \@author\par}
+\end{flushright}
+\end{titlepage}
+}
+\makeatother
